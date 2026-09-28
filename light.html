@@ -1,0 +1,1080 @@
+<title>Топливо на АЗС Тольятти</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&family=PT+Sans+Narrow:wght@400;700&display=swap">
+<style>
+:root {
+  color-scheme: light;
+  --page: #f2f3ef;
+  --surface: #fbfbf9;
+  --ink: #16191b;
+  --ink-2: #4f5559;
+  --muted: #80868a;
+  --grid: #e3e5e0;
+  --axis: #c3c7c1;
+  --ring: rgba(22, 25, 27, 0.10);
+  --focus: #1c5cab;
+  --yes: #1f9a3b;
+  --no: #e5cec5;
+  --unk: #dcdfda;
+  --yes-ink: #13692a;
+  --yes-bg: #e2f2e5;
+  --no-ink: #7c4a3c;
+  --no-bg: #f4e9e5;
+  --unk-ink: #5b6164;
+  --unk-bg: #eaece8;
+  --seq-lo: #e8eff9;
+  --seq-hi: #104281;
+  --bar: #2a78d6;
+  --logo-bg: #2b3033;
+  --unsure: #d03b3b;
+  --font: "PT Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-narrow: "PT Sans Narrow", "Arial Narrow", "Roboto Condensed", "PT Sans", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --page: #0f1112;
+    --surface: #171a1b;
+    --ink: #f1f2ef;
+    --ink-2: #c0c5c2;
+    --muted: #8a9093;
+    --grid: #272b2d;
+    --axis: #3a3f41;
+    --ring: rgba(255, 255, 255, 0.10);
+    --focus: #6da7ec;
+    --yes: #35b653;
+    --no: #5a3d35;
+    --unk: #2e3234;
+    --yes-ink: #86dc98;
+    --yes-bg: #173a22;
+    --no-ink: #e3b7a8;
+    --no-bg: #362824;
+    --unk-ink: #a9afb2;
+    --unk-bg: #262a2c;
+    --seq-lo: #1a2431;
+    --seq-hi: #86b6ef;
+    --bar: #3987e5;
+    --logo-bg: #3b4145;
+    --unsure: #e66767;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #0f1112;
+  --surface: #171a1b;
+  --ink: #f1f2ef;
+  --ink-2: #c0c5c2;
+  --muted: #8a9093;
+  --grid: #272b2d;
+  --axis: #3a3f41;
+  --ring: rgba(255, 255, 255, 0.10);
+  --focus: #6da7ec;
+  --yes: #35b653;
+  --no: #5a3d35;
+  --unk: #2e3234;
+  --yes-ink: #86dc98;
+  --yes-bg: #173a22;
+  --no-ink: #e3b7a8;
+  --no-bg: #362824;
+  --unk-ink: #a9afb2;
+  --unk-bg: #262a2c;
+  --seq-lo: #1a2431;
+  --seq-hi: #86b6ef;
+  --bar: #3987e5;
+  --logo-bg: #3b4145;
+  --unsure: #e66767;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--page);
+  color: var(--ink);
+  font: 15px/1.5 var(--font);
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration-color: var(--axis); text-underline-offset: 3px; }
+a:hover { text-decoration-color: currentColor; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 4px; }
+
+.wrap { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 28px 56px; }
+@media (min-width: 760px) { .wrap { padding-inline: 28px; } }
+
+.eyebrow {
+  font: 700 12px/1.2 var(--font-narrow);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+h1 {
+  font: 700 clamp(30px, 5.4vw, 44px)/1.05 var(--font-narrow);
+  margin: 6px 0 0;
+  text-wrap: balance;
+}
+.lede { color: var(--ink-2); margin: 10px 0 0; max-width: 68ch; }
+h2 {
+  font: 700 23px/1.15 var(--font-narrow);
+  margin: 0;
+  text-wrap: balance;
+}
+.section-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px; margin-bottom: 12px; }
+.hint { color: var(--muted); font-size: 13px; line-height: 1.45; }
+.card { background: var(--surface); border: 1px solid var(--ring); border-radius: 10px; padding: 18px; }
+section { margin-top: 36px; }
+
+/* Верх: главное + сейчас */
+.top-grid { display: grid; gap: 16px; grid-template-columns: 1fr; margin-top: 24px; }
+@media (min-width: 940px) { .top-grid { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); align-items: start; } }
+.notes { margin: 12px 0 0; padding: 0; list-style: none; display: grid; gap: 12px; }
+.notes li { max-width: 72ch; }
+.notes b { font-weight: 700; }
+
+/* Таблица «сейчас» */
+table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 7px 8px; vertical-align: middle; }
+thead th { font: 700 12px/1.2 var(--font-narrow); letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--grid); }
+tbody td { border-bottom: 1px solid var(--grid); }
+tr.brand-row td { font: 700 13px/1.2 var(--font-narrow); letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-2); padding-top: 14px; border-bottom: 0; }
+td.num, th.num { text-align: right; }
+.now-table td:first-child { width: 100%; }
+.chip {
+  display: inline-flex; align-items: center; justify-content: center; gap: 4px;
+  min-width: 46px; padding: 2px 8px; border-radius: 6px;
+  font: 700 13px/1.4 var(--font-narrow); letter-spacing: 0.02em; white-space: nowrap;
+}
+.chip.yes { background: var(--yes-bg); color: var(--yes-ink); }
+.chip.no { background: var(--no-bg); color: var(--no-ink); }
+.chip.unk, .chip.none { background: var(--unk-bg); color: var(--unk-ink); }
+.chip.yes::before { content: "●"; font-size: 9px; }
+
+/* Фильтры */
+.filters {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: var(--page);
+  border-bottom: 1px solid var(--grid);
+  padding-block: 10px;
+  margin-top: 36px;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 10px 22px;
+}
+.filter-group { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.filter-label { font: 700 12px/1 var(--font-narrow); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.grades { display: flex; gap: 6px; }
+.grade {
+  appearance: none; cursor: pointer;
+  display: grid; justify-items: center; align-content: center;
+  width: 58px; height: 46px; border-radius: 8px;
+  border: 1.5px solid var(--axis); background: var(--surface); color: var(--ink);
+  font-family: var(--font-narrow);
+}
+.grade small { font: 700 10px/1 var(--font-narrow); letter-spacing: 0.1em; color: var(--muted); }
+.grade span { font: 700 22px/1 var(--font-narrow); }
+.grade[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--surface); }
+.grade[aria-pressed="true"] small { color: var(--surface); opacity: 0.75; }
+.pills { display: flex; gap: 4px; flex-wrap: wrap; }
+.pill {
+  appearance: none; cursor: pointer;
+  padding: 6px 12px; border-radius: 999px; border: 1px solid var(--axis);
+  background: transparent; color: var(--ink-2); font: 15px/1.2 var(--font);
+}
+.pill[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--surface); }
+
+/* Плитки */
+.tiles { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); margin-top: 20px; }
+.tile { background: var(--surface); border: 1px solid var(--ring); border-radius: 10px; padding: 14px 16px; display: grid; gap: 4px; align-content: start; }
+.tile .value { font: 700 30px/1.1 var(--font-narrow); }
+.tile .value small { font: 400 17px/1 var(--font-narrow); color: var(--ink-2); }
+.tile .note { color: var(--ink-2); font-size: 13px; }
+
+/* Матрица */
+.matrix th.fuel-col { cursor: pointer; text-align: right; }
+.matrix th.fuel-col[aria-current="true"] { color: var(--ink); }
+.matrix td.cell { text-align: right; width: 22%; }
+.matrix td.cell.current { background: color-mix(in srgb, var(--grid) 45%, transparent); }
+.mval { font: 700 17px/1.2 var(--font-narrow); }
+.mval.shaky { color: var(--muted); }
+.mbar { height: 3px; border-radius: 2px; background: var(--grid); margin-top: 4px; margin-left: auto; width: 100%; max-width: 110px; overflow: hidden; }
+.mbar i { display: block; height: 100%; background: var(--yes); border-radius: 2px; }
+.star { color: var(--muted); font-weight: 400; }
+
+/* Лента */
+.tl { display: grid; grid-template-columns: 138px minmax(0, 1fr); }
+@media (min-width: 760px) { .tl { grid-template-columns: 176px minmax(0, 1fr); } }
+.tl-labels { padding-top: 26px; }
+.tl-label { height: 26px; display: flex; align-items: center; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-right: 8px; }
+.tl-brand { height: 22px; display: flex; align-items: flex-end; font: 700 11px/1 var(--font-narrow); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.tl-scroll { overflow-x: auto; overflow-y: hidden; }
+.tl-scroll svg { display: block; }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 12px; font-size: 13px; color: var(--ink-2); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.sw { width: 18px; height: 11px; border-radius: 2px; display: inline-block; flex: none; }
+.sw.yes { background: var(--yes); }
+.sw.yes-soft { background: repeating-linear-gradient(135deg, var(--yes) 0 2px, transparent 2px 5px); box-shadow: inset 0 0 0 1px var(--yes); }
+.sw.no { background: var(--no); }
+.sw.no-soft { background: repeating-linear-gradient(135deg, var(--no) 0 2px, transparent 2px 5px); box-shadow: inset 0 0 0 1px var(--no); }
+.sw.unk { background: var(--unk); }
+.sw.uns { background: repeating-linear-gradient(135deg, var(--unsure) 0 2px, transparent 2px 5px); box-shadow: inset 0 0 0 1px var(--unsure); }
+.sw.err { background: repeating-linear-gradient(45deg, var(--unsure) 0 2px, transparent 2px 5px); box-shadow: inset 0 0 0 1px var(--unsure); }
+.sw.off { background: transparent; box-shadow: inset 0 0 0 1px var(--axis); }
+
+/* Часы и дни */
+.hm-scroll { overflow-x: auto; }
+.hm { display: grid; grid-template-columns: 74px repeat(24, minmax(24px, 1fr)) 56px; gap: 2px; min-width: 760px; font-variant-numeric: tabular-nums; }
+.hm .h { font-size: 11px; color: var(--muted); text-align: center; align-self: end; padding-bottom: 2px; }
+.hm .rl { font-size: 13px; color: var(--ink-2); display: flex; align-items: center; white-space: nowrap; }
+.hm .rl b { font-weight: 700; color: var(--ink); margin-right: 5px; }
+.hm .c { height: 26px; border-radius: 3px; }
+.hm .c.empty { background: repeating-linear-gradient(135deg, var(--grid) 0 1.5px, transparent 1.5px 5px); }
+.hm .rs { font: 700 14px/26px var(--font-narrow); text-align: right; color: var(--ink-2); }
+.hm .sep { grid-column: 1 / -1; height: 8px; }
+.hm .bar-cell { height: 44px; display: flex; align-items: flex-end; justify-content: center; position: relative; }
+.hm .bar-cell i { display: block; width: 70%; background: var(--bar); border-radius: 3px 3px 0 0; min-height: 1px; }
+.hm .bar-cell.ups i { background: var(--yes); }
+.hm .bar-cell em { position: absolute; top: -2px; font: 700 11px/1 var(--font-narrow); font-style: normal; color: var(--ink-2); }
+.hm-legend { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 12px; font-size: 13px; color: var(--ink-2); }
+.ramp { width: 160px; height: 10px; border-radius: 2px; background: linear-gradient(90deg, var(--seq-lo), var(--seq-hi)); }
+.seg-small { display: inline-flex; gap: 4px; }
+
+/* Журнал и данные */
+details { margin-top: 12px; }
+summary { cursor: pointer; font-weight: 700; }
+.events { max-height: 420px; overflow: auto; margin-top: 10px; }
+.events td { font-size: 14px; }
+.about { display: grid; gap: 8px; margin: 0; padding-left: 18px; max-width: 78ch; color: var(--ink-2); }
+.gaps { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.gaps span { font-size: 12.5px; padding: 2px 8px; border-radius: 6px; background: var(--unk-bg); color: var(--unk-ink); font-variant-numeric: tabular-nums; }
+.table-scroll { overflow-x: auto; }
+.stations td, .stations th { white-space: nowrap; }
+.stations td:first-child { white-space: normal; min-width: 150px; }
+.muted { color: var(--muted); }
+
+/* Выбор нескольких сетей, марок и адресов */
+.pill[aria-pressed="mixed"] { border-color: var(--ink); color: var(--ink); background: var(--unk-bg); }
+.pill .cnt { font-size: 12px; color: var(--muted); margin-left: 5px; }
+.st-toggle {
+  appearance: none; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 12px; border-radius: 8px; border: 1px solid var(--axis);
+  background: var(--surface); color: var(--ink); font: 15px/1.2 var(--font);
+}
+.st-toggle[aria-expanded="true"], .st-toggle.narrowed { border-color: var(--ink); }
+.st-toggle .caret { font-size: 11px; color: var(--muted); }
+.st-panel {
+  position: absolute; top: calc(100% + 6px); left: 0; right: 0; margin-inline: auto;
+  width: min(680px, 100%); max-height: min(70vh, 560px); overflow: auto; z-index: 6;
+  background: var(--surface); border: 1px solid var(--ring); border-radius: 10px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, .16); padding: 14px 16px;
+}
+.st-groups { display: grid; gap: 14px 20px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+.st-group label { display: flex; align-items: center; gap: 9px; padding: 5px 0; cursor: pointer; }
+.st-group .brand-check { font: 700 13px/1.2 var(--font-narrow); letter-spacing: .07em; text-transform: uppercase; color: var(--ink-2); border-bottom: 1px solid var(--grid); padding-bottom: 7px; margin-bottom: 2px; }
+.st-group input { width: 17px; height: 17px; margin: 0; accent-color: var(--ink); flex: none; }
+.st-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; margin-top: 12px; }
+.combo-hint { margin: 12px 0 0; max-width: 80ch; }
+.tl-label .nm { overflow: hidden; text-overflow: ellipsis; }
+.tl-label .tag { margin-left: auto; padding-left: 6px; font: 700 11px/1 var(--font-narrow); color: var(--muted); flex: none; }
+.fchip { display: inline-block; min-width: 30px; text-align: center; padding: 1px 5px; border-radius: 5px; font: 700 12px/1.4 var(--font-narrow); margin-left: 3px; }
+.fchip.yes { background: var(--yes-bg); color: var(--yes-ink); }
+.fchip.no { background: var(--no-bg); color: var(--no-ink); }
+.fchip.unk { background: var(--unk-bg); color: var(--unk-ink); }
+.matrix th.combo-col { text-align: right; color: var(--ink); }
+
+/* значки сетей вместо названий */
+.logo { width: 20px; height: 20px; padding: 3px; background: var(--logo-bg); border-radius: 5px; vertical-align: -5px; margin-right: 7px; flex: none; }
+.logo-lg { width: 26px; height: 26px; padding: 4px; border-radius: 6px; vertical-align: -8px; }
+.pill-logo { display: inline-flex; align-items: center; gap: 4px; padding: 4px 8px; }
+.pill-logo .logo, .brand-check .logo, .tl-brand .logo, tr.brand-row .logo { margin-right: 0; }
+
+/* ---------- телефон ---------- */
+.lede-logos { white-space: nowrap; }
+.lede-logos .logo { margin: 0 0 0 4px; }
+.mval { white-space: nowrap; }
+.hm .ls { display: none; }
+@media (max-width: 600px) {
+  .filters { gap: 8px 10px; padding-block: 8px; }
+  .filters .filter-label { display: none; }
+  .grades { gap: 5px; }
+  .grade { width: 46px; height: 40px; }
+  .grade span { font-size: 18px; }
+  .pill { padding: 5px 10px; font-size: 14px; }
+  .pill-logo { padding: 4px 6px; }
+  .st-toggle { padding: 5px 10px; font-size: 14px; }
+  th, td { padding: 7px 5px; }
+  .chip { min-width: 40px; padding: 2px 6px; }
+  .matrix td.cell { width: auto; }
+  .mval { font-size: 15px; }
+  .tl { grid-template-columns: 112px minmax(0, 1fr); }
+  .tl-label { font-size: 13px; }
+  .hm { min-width: 0; grid-template-columns: 40px repeat(24, minmax(0, 1fr)) 34px; gap: 1px; }
+  .hm .c { height: 20px; border-radius: 2px; }
+  .hm .h { font-size: 10px; }
+  .hm .h:not(.major) { visibility: hidden; }
+  .hm .rl { font-size: 11px; }
+  .hm .rl .dm { display: none; }
+  .hm .rs { font-size: 11px; line-height: 20px; }
+  .hm .bar-cell { height: 36px; }
+  .hm .bar-cell i { width: 60%; }
+  .hm .bar-cell em { display: none; }
+  .hm .lf { display: none; }
+  .hm .ls { display: inline; }
+  /* таблица по заправкам — карточками */
+  .stations thead { display: none; }
+  .stations, .stations tbody { display: block; }
+  .stations tr { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2px 12px; padding: 10px 0; border-bottom: 1px solid var(--grid); }
+  .stations tr.brand-row { display: block; border-bottom: 0; padding-bottom: 0; }
+  .stations td { border: 0; padding: 2px 0; white-space: normal; text-align: left; font-size: 14px; }
+  .stations td:first-child { grid-column: 1 / -1; font-weight: 700; padding-bottom: 4px; }
+  .stations td[data-l]::before { content: attr(data-l); display: block; font-size: 11.5px; color: var(--muted); }
+}
+
+#tip {
+  position: fixed; z-index: 20; pointer-events: none;
+  background: var(--ink); color: var(--surface);
+  font-size: 13px; line-height: 1.4; padding: 7px 10px; border-radius: 7px;
+  max-width: 280px; box-shadow: 0 4px 16px rgba(0,0,0,.18);
+}
+#tip b { font-weight: 700; }
+footer { margin-top: 40px; color: var(--muted); font-size: 13px; }
+@media (prefers-reduced-motion: no-preference) {
+  .grade, .pill { transition: background-color .15s, color .15s, border-color .15s; }
+}
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Монитор топлива · Тольятти</div>
+    <h1>Где и когда бывает бензин</h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <div class="top-grid">
+    <div class="card">
+      <div class="section-head"><h2>Главное</h2><span class="hint" id="notes-date"></span></div>
+      <ul class="notes" id="notes"></ul>
+    </div>
+    <div class="card">
+      <div class="section-head"><h2>Сейчас</h2><span class="hint" id="now-time"></span></div>
+      <div class="table-scroll"><table class="now-table" id="now-table"></table></div>
+    </div>
+  </div>
+
+  <div class="filters" role="toolbar" aria-label="Что показывать">
+    <div class="filter-group">
+      <span class="filter-label">Топливо</span>
+      <div class="grades" id="fuel-buttons"></div>
+    </div>
+    <div class="filter-group">
+      <span class="filter-label">Сеть</span>
+      <div class="pills" id="brand-buttons"></div>
+    </div>
+    <div class="filter-group">
+      <button type="button" class="st-toggle" id="st-toggle" aria-expanded="false" aria-controls="st-panel"><span id="st-toggle-text">Адреса</span><span class="caret" aria-hidden="true">▾</span></button>
+    </div>
+    <div class="st-panel" id="st-panel" hidden>
+      <div class="st-groups" id="st-groups"></div>
+      <div class="st-actions">
+        <button type="button" class="pill" id="st-all">Все заправки</button>
+        <button type="button" class="pill" id="st-done" aria-pressed="true">Готово</button>
+      </div>
+    </div>
+  </div>
+  <p class="hint combo-hint" id="combo-hint" hidden></p>
+
+  <div class="tiles" id="tiles"></div>
+
+  <section>
+    <div class="section-head">
+      <h2>Где чаще бывает</h2>
+      <span class="hint">Доля времени с топливом за весь период. Нажмите на марку в шапке, чтобы добавить её в выбор или убрать.</span>
+    </div>
+    <div class="card table-scroll"><table class="matrix" id="matrix"></table>
+      <p class="hint" style="margin:10px 0 0"><span class="star">*</span> Больше половины времени Яндекс отвечал «неизвестно». Цифра посчитана по последнему понятному ответу, как в боте, поэтому может быть завышена.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2 id="tl-title">Лента по дням</h2>
+      <span class="hint">Каждая полоса — заправка, отрезок — 15 минут. Наведите или нажмите, чтобы увидеть время.</span>
+    </div>
+    <div class="card">
+      <div class="tl">
+        <div class="tl-labels" id="tl-labels"></div>
+        <div class="tl-scroll" id="tl-scroll"></div>
+      </div>
+      <div class="legend">
+        <span><i class="sw yes"></i>есть</span>
+        <span><i class="sw no"></i>нет</span>
+        <span><i class="sw uns"></i>Яндекс не уверен («?»)</span>
+        <span><i class="sw err"></i>нет связи с Яндексом</span>
+        <span><i class="sw unk"></i>статус ни разу не был понятен</span>
+        <span><i class="sw off"></i>монитор не работал (ноутбук выключен)</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2 id="hm-title">Часы и дни</h2>
+      <div class="seg-small" role="group" aria-label="Строки">
+        <button class="pill" type="button" id="hm-dates" aria-pressed="true">По датам</button>
+        <button class="pill" type="button" id="hm-weekdays" aria-pressed="false">По дням недели</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="hm-scroll"><div class="hm" id="hm"></div></div>
+      <div class="hm-legend">
+        <span>Доля заправок с топливом:</span><span>0 %</span><span class="ramp"></span><span id="hm-max">100 %</span>
+        <span><i class="sw off" style="background:repeating-linear-gradient(135deg,var(--grid) 0 1.5px,transparent 1.5px 5px)"></i>нет данных</span>
+      </div>
+      <p class="hint" id="hm-note" style="margin:8px 0 0"></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2 id="st-title">По заправкам</h2>
+      <span class="hint">«Держится» и «ждать» — медиана по окнам, у которых видно и начало, и конец.</span>
+    </div>
+    <div class="card table-scroll"><table class="stations" id="stations"></table></div>
+  </section>
+
+  <section>
+    <div class="section-head"><h2>Журнал изменений</h2><span class="hint" id="ev-hint"></span></div>
+    <div class="card">
+      <details id="ev-details">
+        <summary id="ev-summary">Показать</summary>
+        <div class="events"><table id="events"></table></div>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head"><h2>Откуда данные</h2></div>
+    <div class="card">
+      <ul class="about" id="about"></ul>
+      <div class="gaps" id="gaps"></div>
+    </div>
+  </section>
+
+  <footer id="footer"></footer>
+</div>
+<div id="tip" hidden></div>
+
+<script>
+// Общая логика дашборда АЗС: данные, выбор марок и заправок, расчёты и отрисовка разделов.
+// Подставляется в оба шаблона (dashboard_template*.html) на место /*__CORE__*/ — оформление
+// у шаблонов разное, цифры одни и те же. Шаблон может объявить renderExtra(stations, fuels).
+const D = {"generated":"28.09.2026 13:13","start":"2026-09-19T00:00","slotMinutes":15,"n":917,"detailFrom":426,"stations":[{"id":"52429498945","brand":"Тебойл","address":"Южное ш., 111А","short":"Южное, 111А","url":"https://yandex.ru/maps/org/teboil/52429498945/"},{"id":"130736900235","brand":"Тебойл","address":"Борковская ул., 91А","short":"Борковская, 91А","url":"https://yandex.ru/maps/org/teboil/130736900235/"},{"id":"1036070713","brand":"Лукойл","address":"Борковская ул., 43","short":"Борковская, 43","url":"https://yandex.ru/maps/org/lukoyl/1036070713/"},{"id":"1073391804","brand":"Роснефть","address":"Борковская ул., 37","short":"Борковская, 37","url":"https://yandex.ru/maps/org/rosneft/1073391804/"},{"id":"1192083531","brand":"Роснефть","address":"Обводное ш., 19","short":"Обводное, 19","url":"https://yandex.ru/maps/org/rosneft/1192083531/"},{"id":"1123115102","brand":"Роснефть","address":"Автозаводское ш., 14","short":"Автозаводское, 14","url":"https://yandex.ru/maps/org/rosneft/1123115102/"},{"id":"57207154646","brand":"Тебойл","address":"Автозаводское ш., 4","short":"Автозаводское, 4","url":"https://yandex.ru/maps/org/teboil/57207154646/"},{"id":"1230464042","brand":"Лукойл","address":"Обводное ш., 7А","short":"Обводное, 7А","url":"https://yandex.ru/maps/org/lukoyl/1230464042/"},{"id":"1078079958","brand":"Лукойл","address":"Приморский бул., 50А","short":"Приморский, 50А","url":"https://yandex.ru/maps/org/lukoyl/1078079958/"}],"brands":["Лукойл","Тебойл","Роснефть"],"fuels":[{"key":"AI92","label":"АИ-92","short":"92"},{"key":"AI95","label":"АИ-95","short":"95"},{"key":"AI95_PREMIUM","label":"АИ-95+","short":"95+"}],"rows":{"52429498945":{"AI92":"-------------------------------------___-----------__----------------------------------------------------------------------------------------------------------------------!!!++++++++++++---!!!-----------------------------____----------------------------------------------------____------------------------------------____----------------------------------------------____-__________--------------------------------___-------------------------------------------------------_---------!---------------__________!!!!!!-----------------++++++++++++++++++++++++!-----_----!---------------------------------------___-------------------------------------------------_-------!---!----_---!--_______________________________------------------------!!______________!+++++!+---!!----!-------------------------------------------!----------------------!---------------!-!!_!----!-!!!!------------------__________--------------------","AI95":"-------------------------------------___-----------__----------------------------------------------------------------------------------------------------------------------!!!---------------!!!-----------------------------____----------------------------------------------------____------------------------------------____---------------+++++++++++++++++++++++++++----____-__________--------------------------------___-------------------------------------------------------_---------!---------------__________!!!!!!-----------------------------------------!-----_----!---------------------------------------___-------------------------------------------------_-------!---!----_---!--_______________________________------------------------!!______________!-----!----!!----!-------------------------------------------!----------------------!---------------!-!!_!----!-!!!!------------------__________--------------------","AI95_PREMIUM":"-------------------------------------___-----------__----------------------------------------------------------------------------------------------------------------------!!!---------------!!!-----------------------------____----------------------------------------------------____------------------------------------____---------------+++++++++++++++++++++++++++----____-__________--------------------------------___-------------------------------------------------------_---------!---------------__________!!!!!!-----------------------------------------!-----_----!---------------------------------------___-------------------------------------------------_-------!---!----_---!--_______________________________------------------------!!______________!-----!----!!----!-------------------------------------------!----------------------!---------------!-!!_!----!-!!!!------------------__________--------------------"},"130736900235":{"AI92":"-------------------------------------___-----------__----------------------------------!!!!--!!!!-------------------------------------------------------------------------++++++++++++---------------------------------------____----------------------------------------------------____------------------------------------____----------------------------------------------____-__________--------------------------------___-------------------------------------------------------_-------------------------__________!!!!!!-----------------------------------------------_----!---------------------------------------___-------------------------------------------------_----------------_-!!---_______________________________--------------------------______________!++!++-------------!----------------------------------------------------------------------------!----!!!_-------!!!!------------------__________--------------------","AI95":"-------------------------------------___-----------__----------------------------------!!!!--!!!!----------------------------------------------------------------------------------------------------------------------------____----------------------------------------------------____------------------------------------____----------------------------------------------____-__________--------------------------------___-------------------------------------------------------_-------------------------__________!!!!!!-----------------------------------------------_----!---------------------------------------___------------------+++++++++++++++----------------_----------------_-!!---_______________________________--------------------------______________!--!---------------!----------------------------------------------------------------------------!----!!!_-------!!!!------------------__________--------------------","AI95_PREMIUM":"-------------------------------------___-----------__----------------------------------!!!!--!!!!----------------------------------------------------------------------------------------------------------------------------____----------------------------------------------------____------------------------------------____-----------+++++++++++------------------------____-__________--------------------------------___-------------------------------------------------------_-------------------------__________!!!!!!-----------------------------------------------_----!---------------------------------------___--------------------+++++++++++++++++------------_----------------_-!!---_______________________________--------------------------______________!--!---------------!----------------------------------------------------------------------------!----!!!_-------!!!!------------------__________--------------------"},"1036070713":{"AI92":"+++++++++++++++++++++++++++++++++++++___+++++++++++__++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-----+++++++++++++++++++++++++++++++++++++++++++++++____++++++++++++++++++++++++++++++++++++++++++++++++++++____++++++++++++++++++++++++++++++++++++____++++++++++++++++++++++++++++++++++++++++++++++____+__________++++++++++++++++++++++++++++++++___++++++++++++++++++++++++++++++++++++++---------------++_+++++-----------+++++++--__________!!!!!!-----------------------++++++++++--------!-!---_----!-!!-+++++++----------------------------___-----++++++++++++--+++++++++++++++++++++++++++---_----------------_------_______________________________--------------------------______________!-!-----------------------------------------------------+++++++++------------------------++++++!+-------_-------!!!!------------------__________++-----+++++++++++++","AI95":"-------------------------------------___-----------__------------------------------------------------------------------------------------------------------------------------------------------------------------------------____----------------------------------------------------____------------------------------------____----------------------------------------------____-__________--------------------------------___-------------------------------------------------------_-------------------------__________!!!!!!-----------------------------------------!-!---_----!-!!------------------------------------___-------------------------------------------------_----------------_------_______________________________--------------------------______________!-!--------------------------------------------------------------------------------------------!--------_-------!!!!------------------__________--------------------","AI95_PREMIUM":"+++++++++++++++++++++++++++++++++++++___+++++++++++__++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-----+++++++++++++++++++++++++++++++++++++++++++++++____++++++++++++++++++++++++++++++++++++++++++++++++++++____++++++++++++++++++++++++++++++++++++____++++++++++++++++++++++++++++++++++++++++++++++____+__________++++++++++++++++++++++++++++++++___++++++++++++++++++++++++++++++++++--+++++++++++++++++--_-------------------------__________!!!!!!--+++++++++++++++++++++++++++++++++++++++!-!---_++++!+!!++++--------------------------------___------+++++++++-------+++++++++++++++++++++++++++_++++++++++++++++_------_______________________________-----+++++++++++++++++++++______________!-!---+++++++++------------------------------------------------------++++++++++++++++++++++++++!+++++---_-------!!!!+++++-------------__________------++++++++++++++"},"1073391804":{"AI92":"ppppppppppppppppppppppppppppppppppppp___ppppppppppp__pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp____ppppppppppppppppppppppppppppppppppppppppp+++++++++++____++++++++++++++++++++++++++++++++++++____+++++++ppppppppppppppppppppppppppppppppppppppp____p__________pppppppppppppppppppppppppppppppp___pppppppppppppppppppp-----------------------------------_mm!mmmmmmmmmmmmmmmmmmmmmm__________!!!!!!mmmmmmmmmmmm!mmmmmmmmmmmmmmmmm----!-----!!---!!_+ppp!ppppp!ppppppppppppppppppppppppppppppppp___pppppppp++++pppppppp++++ppppppppppppppppppppppppp_p!pppppppppppppp_p-----_______________________________mmmmmmmmmmmmmmmmmmmmmmmmmm______________!!mmmmmmmmmm!mmmm!mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm++pppppppppppp_ppppppp!!!!pppppppppppppppppp__________ppppppppppppppppp++p","AI95":"?????????????????????????????????????___???????????__??????++pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp____ppppppppppppppppppppppppppppppppppppppppp-----------____------------------------------------____-------mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm____m__________mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm___mmmmmmmmmmmmmmmmmmmm-----------------------------------_mm!mmmmmmmmmmmmmmmmmmmmmm__________!!!!!!mmmmmmmmmmmm!mmmmmmmmmmmmmm++ppppp!ppppp!!ppp!!_pppp!ppppp!ppppppppppppppppppppppppppppppppp___pppppppppppppppppppp-----------------------------_-!--------------_------_______________________________mmmmmmmmmmmmmmmmmmmmmmmm++______________!!pppppppppp!pppp!pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp_ppppppp!!!!pppppppppppppppppp__________ppppppppppppppp++ppp","AI95_PREMIUM":"?????????????????????????????????????___???????????__????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????____????????????????????????????????????????????????????____????????????????????????????????????____??????????????????????????????????????????????____?__________????????????????????????????????___???????????????????????????????????????????????????????_??!??????????????????????__________!!!!!!????????????!?????????????????????!?????!!???!!_????!?????!?????????????????????????????????___?????????????????????????????????????????????????_?!??????????????_??????_______________________________??????????????????????????______________!!??????????!????!??????????????????????????????????????????????????????????????????????????????????????_???????!!!!??????????????????__________????????????????????"},"1192083531":{"AI92":"ppppppp+++++pppppppppppp+++pppppppppp___ppppppppppp__pppppppp++++++++++++++++++++++++++!!!!++++++++++++++++++++++++++++pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp____pppppppppppppppp++++++++++++++++++++++++++++++++++++____++++++++++++++++++++++++++++++++++++____++++++++++++++++++++++++++++++++++++++++++++++____+__________++++++++++++++++++++++++++++++++___+++++++++p++p+++++++++pp++ppppppppppppppppppppppp++pppp_ppppppppppppppppppppppppp__________!!!!!!p+++++ppp+++pppp++ppp++++++++++pppppp++pp++!ppp_++++!p++++p++ppppppppppppppppppppppppppppppp___p+++++++pp+++++ppppppppppppppppppp++++p++++++++++_+++++++++ppppppp_pppppp_______________________________pppp----------------------______________!-mmmmmmmmmmmmmmmmmm+++p++p+++ppppp++++ppp+++++++p+++++++++p+++p++ppp+++++++++pppppppppppppppppppppppppp_ppppppp!!!!pppppppppppppppppp__________+p++++pppppp+++ppppp","AI95":"+++++++pppppppppppppppppppp++++++++++___+++++++++++__++++++++++++++++++++++++++++++++++!!!!++++++++++++++++++++++++++++pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp____pppppppppppppppp+++++++++++++++++++++++++ppppppppppp____pppppppppppppppppppppppppppppppppppp____ppppppp++++ppppppppppppppppppppppppppppppp++++____+__________++++++++++++++++++++++++++++++++___+++++++++p+++p++++++p++++++++ppppp++p++ppp+++++++p+++++_ppp+++ppppppppppppppppppp__________!!!!!!ppp++++pppp++p+++pp+++++++ppp++ppppppppp+++!ppp_++++!+++p+++pppppppppppppppppppppppppppppppp___p++pp++pppp++pp++++++++pppppppppppppppppppppppppp_pppppppppppppppp_pppppp_______________________________++++++++pppppppppppppppppp______________!pppppppppppppppppppppppppppppppppppppppppppppppp++p++ppppppp++++ppp+++++ppppp+++ppppppppppppppppppppppp_ppppppp!!!!pppppppppppppppppp__________pppppppp+++++++pp+++","AI95_PREMIUM":"???????+++++++++++++++++ppppppppppppp___ppppppppppp__pppppppppppppppppppppppppppppppppp!!!!pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp____pppppppppppppppppppppppppppppppppppppppppppppppppppp____pppppppppppppppppppppppppppppppppppp____pppppppppppppppppppppppppppppppppppppppppppppp____p__________pppppppppppppppppppppppppppppppp___ppppppppppppppppppppppppppppppppppppppppppppppppppppppp_ppppppppppppppppppppppppp__________!!!!!!ppppppppppppppppppppppppppppppppppppppppppp!ppp_pppp!ppppppppppppppppppppppppppppppppppppppp___ppppppppppppppppppppppppppppppppppppppppppppppppp_pppppppppppppppp_pppppp_______________________________pppppppppppppppppppppppppp______________!ppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp_ppppppp!!!!pppppppppppppppppp__________pppppppppppppppppppp"},"1123115102":{"AI92":"+++++++pppppppppppppppppppp++++++++++___+++++++++++__+++++++++++++++++++++++++++++++++++ppppppppppppppppppppppppppppppp----++++++++++++++++++++++++ppppppp+++++++++++++++++++++++++++++++++++++++++++++pppppppppppppppppppppp____pp++++++++++++++p++++++++++++++++++++++++ppppppppppp____pppppppppppppppppppppppppppppppppppp____ppppppppppp-------------------------------++++____+__________++++++++pppppppppppppppppppppppp___pppppppppppp----------+++pppppppppppppppppppppppppppppp_pppppppp!pppp-------mmmmm__________!!!!!!mmmmmmmmmmmmmmm--------------------------------_----!------++ppppp!ppppppppppppppppppppppppp___pppppppppppppppppppppppppppp---------------------_--++++pppppppppp_pppppp_______________________________+ppppppppppppppppppppppppp______________!pppppp------------------mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm!mmmmmm_-------!!!!------------------__________----++++pppppppppppp","AI95":"????????????---------------++++++++++___+++++++++++__++++++++pppppppppppppppppppppppppppppppppppppppppppppppppppppppppp++++++++++++++++++++++++++++ppppppppppppppppppppppppppppppp-------------------------------------------____------------mmmm-++++++++++++++++++++++++ppppppppppp____pppppppppppppppppppppppppppppppppppp____ppppppp+++++++++++++++++++++++++++++++++++pppp____p__________pppppppp------------------mm++++___++++++++++++++++ppppppppppppppppppppppppppppppppppppppp_pppppp--!-----------mmmmm__________!!!!!!+++++++++++++++pppppppppppppppppppppppppppppppp_pppp!pp++ppppppppp!pppppppppppppppppppp+++++___+++++++++pppppppppppppppppppppppppppppppppppppppp_ppppp-----------_------_______________________________+++++++ppppppppppppppppppp______________!pppppppppppp------------mmmmmmmmmmmmmmmmmm+++++++++++++++++ppppppppppppppppppppppppppppppppppppp!pppppp_p------!!!!------------------__________+++++p+++++ppppppppp","AI95_PREMIUM":"?????????????????????????????????????___???????????__?+++++++pppppppppppppppppppppppppppppppppppppppppppppppppppppppppp++++pppppppppppppppppppppppp+++++++++++++++++++ppppppppppppppppppppppppppppppppp-----------------mmmmm____mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm-----------____------------------------------------____-------mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm----____-__________--------------------------mmmmmm___mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm-------------------_--------!---mmmmmmmmmmmmm__________!!!!!!mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm--------_----!----------mmm!mmmmmmmmmmmmmmmmmmmmmmmmm___mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm-----------------_--------------mm_mmmmmm_______________________________mmmmmmmmmmmmmmmmmmmmmmmm--______________!-------------------mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm!mmmmmm_-------!!!!----mmmmmmmmmmmmmm__________mmmmmmmmmmmmmmmmmmmm"},"57207154646":{"AI92":"-------------------------------------___-----------__----------------------------------------------------------------------------------------------+++++++++++++++++++++++++++++++++++++++-----------------------------------____----------------------------------------------------____------------------------------------____----------------------------------------------____-__________--------------------------------___-------------------------------------------------------_----!--------------------__________!!!!!!------------+++++++++++++++++++++++++-------!--_----!---------------------------------------___-------------------------------------------------_----------------_-!----_______________________________--------------------------______________!----------!----------------------------------------------------------++++++++++++++++++++-------!------_-------!!!!------------------__________--------------------","AI95":"-------------------------------------___-----------__------------------------------------------------------------------------------------------------------------------------------------------------------------------------____----------------------------------------------------____------------------------------------____----------------------------------------------____-__________--------------------------------___-------------------------------------------------------_----!--------------------__________!!!!!!--------------------------------------------!--_----!---------------------------------------___-------------------------------------------------_----------------_-!----_______________________________--------------------------______________!----------!-------------------------------------------------------------------------------------!------_-------!!!!------------------__________--------------------","AI95_PREMIUM":"-------------------------------------___-----------__------------------------------------------------------------------------------------------------------------------------------------------------------------------------____----------------------------------------------------____------------------------------------____----------------------------------------------____-__________--------------------------------___-------------------------------------------------------_----!--------------------__________!!!!!!--------------------------------------------!--_----!---------------------------------------___------------------------+++++++++++++------------_----------------_-!----_______________________________--------------------------______________!----------!-------------------------------------------------------------------------------------!------_-------!!!!------------------__________--------------------"},"1230464042":{"AI92":"+++++++++++++++++++++++++++++++++++++___+++++++++++__+++++++++++++++++++++++++++++++++++-------------------------------------------------------------------------------------------------------------------------------------____----------------++++++++++++++++++++++++++++++++++++____++++++++++++++++++++++++++++++++++++____+++++++---------------------------------------____-__________--------------------------------___-------------------------------------------------------_-------------------------__________!!!!!!--------------++++++++++--------++++++++!++++++_----!-------------!-!---++++++++------------___+++++++++++++++++++--++++++++++++++++++++++++++++_++++++++++++++++_------_______________________________-----------+++++++++++!+!!______________!++++++++++++++++!+++++++++++------------------------------------------------------------------------!!!_+!+++++!!!!-------++++++++---__________------------+++++++-","AI95":"-------------------------------------___-----------__------------------------------------------------------------------------------------------------------------------------------------------------------------------------____----------------------------------------------------____------------------------------------____----------------------------------------------____-__________--------------------------------___-------------------------------------------------------_-------------------------__________!!!!!!----------------------------------------!------_----!-------------!-!-----------------------___-------------------------------------------------_----------------_------_______________________________----------------------!-!!______________!----------------!-----------------------------------------------------------------------------------!!!_-!-----!!!!------------------__________--------------------","AI95_PREMIUM":"+++++++++++++++++++++++++++++++++++++___+++++++++++__++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++____++++++++++++++++++++++++++++++++++++++++++++++++++++____++++++++++++++++++++++++++++++++++++____++++++++++++++++++++++++++++++++++++++++++++++____+__________++++++++++++++++++++++++++++++++___++++++++++++++++++++++++++++++++++---------------------_-------------------------__________!!!!!!-----------------------+++++++++-----+++!++++++_+---!-------------!-!-----------------------___-----+++++++++---------------------------++++++++_----------------_------_______________________________+----------+++++++++++!+!!______________!++++++++++++++++!++---------------------------------------------+++++++++-------------++++++--------!!!_-!---++!!!!+-----------------__________-------+++++++++++++"},"1078079958":{"AI92":"+++++++++++++++++++++++++++++++++++++___+++++++++++__+-------++++++++++++++++++++++++++!!!!+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++------------+++++++++------++++++++++++++++++++++++++++++++++++++++____++----------++++++++++++++++++++++++++++++++++++++++____++++++++++++++++++++++++++++++++++++____++++++++++++++++++++++++++++++++++++++++++++++____+__________++++++++++++++++++++++++++++++++___++++++++++++++++++++++++++++++++++---------------------_-----------!-------------__________!!!!!!-----------------------------------------------_--!-!----------!----------------------------___-------------------------------------------------_------------!---_------_______________________________--------------------------______________!-----------------------------------------------------------------------------------------------------!!_!-!----!!!!------------------__________--------------------","AI95":"-------------------------------------___-----------__----------------------------------!!!!----------------------------------------------------------------------------------------------------------------------------------____----------------------------------------------------____------------------------------------____----------------------------------------------____-__________--------------------------------___-------------------------------------------------------_-----------!-------------__________!!!!!!-----------------------------------------------_--!-!----------!----------------------------___-------------------------------------------------_------------!---_------_______________________________--------------------------______________!-----------------------------------------------------------------------------------------------------!!_!-!----!!!!------------------__________--------------------","AI95_PREMIUM":"+++++++++++++++++++++++++++++++++++++___+++++++++++__+-------++++++++++++++++++++++++++!!!!+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++------------+++++++++------++++++++++++++++++++++++++++++++++++++++____++----------++++++++++++++++++++++++++++++++++++++++____++++++++++++++++++++++++++++++++++++____++++++++++++++++++++++++++++++++++++++++++++++____+__________++++++++++++++++++++++++++++++++___++++++++++++++++++++++++++++++++++---------------------_-----------!-------------__________!!!!!!-----------------------------------------------_--!-!----------!----------------------------___-------------------------------------------------_------------!---_------_______________________________--------------------------______________!-----------------------------------------------------------------------------------------------------!!_!-!----!!!!------------------__________--------------------"}},"flickers":[{"sid":"1036070713","fuel":"AI92","t":"2026-09-19 06:00","was":"-"},{"sid":"1036070713","fuel":"AI92","t":"2026-09-21 06:00","was":"-"},{"sid":"1036070713","fuel":"AI92","t":"2026-09-23 06:00","was":"-"},{"sid":"1036070713","fuel":"AI95_PREMIUM","t":"2026-09-19 06:00","was":"-"},{"sid":"1036070713","fuel":"AI95_PREMIUM","t":"2026-09-21 06:00","was":"-"},{"sid":"1036070713","fuel":"AI95_PREMIUM","t":"2026-09-23 06:00","was":"-"},{"sid":"1230464042","fuel":"AI92","t":"2026-09-19 06:00","was":"-"},{"sid":"1230464042","fuel":"AI95_PREMIUM","t":"2026-09-19 06:00","was":"-"},{"sid":"1230464042","fuel":"AI95_PREMIUM","t":"2026-09-21 06:00","was":"-"},{"sid":"1230464042","fuel":"AI95_PREMIUM","t":"2026-09-23 06:00","was":"-"},{"sid":"1078079958","fuel":"AI92","t":"2026-09-19 06:00","was":"-"},{"sid":"1078079958","fuel":"AI92","t":"2026-09-21 06:00","was":"-"},{"sid":"1078079958","fuel":"AI92","t":"2026-09-23 06:00","was":"-"},{"sid":"1078079958","fuel":"AI95_PREMIUM","t":"2026-09-19 06:00","was":"-"},{"sid":"1078079958","fuel":"AI95_PREMIUM","t":"2026-09-21 06:00","was":"-"},{"sid":"1078079958","fuel":"AI95_PREMIUM","t":"2026-09-23 06:00","was":"-"}],"offPeriods":[{"from":"2026-09-18 22:01","to":"2026-09-18 22:44","stations":["1036070713","1073391804","1230464042"],"why":"нет связи с Яндексом"},{"from":"2026-09-19 09:19","to":"2026-09-19 10:01","stations":null,"why":"ноутбук выключен"},{"from":"2026-09-19 12:50","to":"2026-09-19 13:21","stations":null,"why":"ноутбук выключен"},{"from":"2026-09-19 13:34","to":"2026-09-19 13:37","stations":null,"why":"ноутбук спал"},{"from":"2026-09-19 21:46","to":"2026-09-19 22:44","stations":["130736900235","1192083531","1078079958"],"why":"нет связи с Яндексом"},{"from":"2026-09-19 23:14","to":"2026-09-20 00:14","stations":["130736900235"],"why":"нет связи с Яндексом"},{"from":"2026-09-20 18:44","to":"2026-09-20 19:29","stations":["52429498945"],"why":"нет связи с Яндексом"},{"from":"2026-09-20 23:14","to":"2026-09-20 23:59","stations":["52429498945"],"why":"нет связи с Яндексом"},{"from":"2026-09-21 07:12","to":"2026-09-21 08:16","stations":null,"why":"ноутбук выключен"},{"from":"2026-09-21 21:19","to":"2026-09-21 22:11","stations":null,"why":"ноутбук выключен"},{"from":"2026-09-22 07:11","to":"2026-09-22 08:14","stations":null,"why":"ноутбук выключен"},{"from":"2026-09-22 19:44","to":"2026-09-22 20:43","stations":null,"why":"ноутбук выключен"},{"from":"2026-09-22 21:06","to":"2026-09-22 23:29","stations":null,"why":"ноутбук спал"},{"from":"2026-09-23 07:28","to":"2026-09-23 08:18","stations":null,"why":"ноутбук выключен"}],"latest":{"t":"28.09.2026 12:58","cells":{"52429498945":{"AI92":"-","AI95":"-","AI95_PREMIUM":"-"},"130736900235":{"AI92":"-","AI95":"-","AI95_PREMIUM":"-"},"1036070713":{"AI92":"+","AI95":"-","AI95_PREMIUM":"+"},"1073391804":{"AI92":"?","AI95":"?","AI95_PREMIUM":"?"},"1192083531":{"AI92":"?","AI95":"+","AI95_PREMIUM":"?"},"1123115102":{"AI92":"?","AI95":"?","AI95_PREMIUM":"?"},"57207154646":{"AI92":"-","AI95":"-","AI95_PREMIUM":"-"},"1230464042":{"AI92":"-","AI95":"-","AI95_PREMIUM":"+"},"1078079958":{"AI92":"-","AI95":"-","AI95_PREMIUM":"-"}}},"days":[{"label":"19.09","dow":"сб","wd":5},{"label":"20.09","dow":"вс","wd":6},{"label":"21.09","dow":"пн","wd":0},{"label":"22.09","dow":"вт","wd":1},{"label":"23.09","dow":"ср","wd":2},{"label":"24.09","dow":"чт","wd":3},{"label":"25.09","dow":"пт","wd":4},{"label":"26.09","dow":"сб","wd":5},{"label":"27.09","dow":"вс","wd":6},{"label":"28.09","dow":"пн","wd":0}],"notes":{"date":"26.09.2026","period":"19–26.09","items":[{"lead":"За АИ-95 — на Роснефть, Обводное 19.","text":"Все 254 понятных ответа Яндекса по АИ-95 на этой заправке за восемь дней — «есть». Но в 61 % времени Яндекс там отвечает «неизвестно», так что вывод сделан по неполным данным. Второе место — Роснефть, Автозаводское 14: «есть» в 59 % понятных ответов."},{"lead":"На Лукойлах обычного АИ-95 не было ни разу.","text":"Там бывает только 95+: на Борковской 43 он был 85 % времени, на Обводном 7А — 73 %. Если нужен 95-й, а Роснефть пуста, Лукойл с 95+ — самый частый запасной вариант."},{"lead":"Тебойл почти всегда пустой.","text":"Любое топливо там было не больше 10 % времени. АИ-95 и 95+ появлялись только днём, с 11 до 14 часов, и держались от 2 ч 45 мин до 6 ч 45 мин."},{"lead":"С 23 сентября топлива стало заметно меньше.","text":"АИ-92 19–21.09 был в среднем на 60–65 % заправок, 24 и 26.09 — на 24–28 %. 95+ упал с 50–60 % до 23–28 %. АИ-95 держится на одном уровне, 20–32 %. Лукойл на Приморском стоит без 92 и 95+ с 23.09 16:44."},{"lead":"Когда ехать.","text":"Разница по часам небольшая. АИ-95 чаще бывает днём, с 15 до 18 часов: около 30 % заправок против 20–22 % ночью. 95+ — утром около 7 часов и с 14 до 17 (около 50 %), реже всего в 21–22 часа (38–39 %). Новые завозы чаще всего появляются с 9 до 14 часов: так было в 12 случаях из 21 для 95+ и в 12 из 26 для АИ-92."},{"lead":"Сколько держится.","text":"95+ после появления держится обычно около 3 часов, а закончившись, снова появляется примерно через 1 ч 45 мин (это в основном Лукойл). АИ-92 держится около 4 часов, ждать — около 2,5 часа. По АИ-95 таких окон пока всего три, оценивать рано."},{"lead":"Заправки одной сети не пополняются разом.","text":"У Лукойла только 8 появлений из 34 совпали по времени (±30 минут) с другой его заправкой, у Тебойла и Роснефти — ни одного. Если топливо появилось на одной заправке сети, это не значит, что оно есть и на соседней."},{"lead":"Про качество данных.","text":"У Лукойла 19, 21 и 23.09 ровно в 06:00 все статусы на 15 минут падали в «нет» — это сбой источника, такие одиночные скачки сглажены. Роснефть Яндекс знает хуже всех: половину времени и больше отвечает «неизвестно», а по 95+ на Борковской 37 не ответил понятно ни разу."}]},"logos":{"Лукойл":"data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSI4NS4wNSA1Ni40NSA1NzYuNTMgNTc2LjUzIg0KICAgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyINCiAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyINCiAgIHZlcnNpb249IjEuMCINCiAgDQogIA0KICAgaWQ9InN2ZzIiPg0KICA8ZGVmcw0KICAgICBpZD0iZGVmczQiPg0KICAgIDxjbGlwUGF0aA0KICAgICAgIGlkPSJjbGlwUGF0aDI2OTciPg0KICAgICAgPHBhdGgNCiAgICAgICAgIGQ9Ik0gMCw4NDIuMDQgTCA1OTQuOTYsODQyLjA0IEwgNTk0Ljk2LDAgTCAwLDAgTCAwLDg0Mi4wNCB6Ig0KICAgICAgICAgaWQ9InBhdGgyNjk5IiAvPg0KICAgIDwvY2xpcFBhdGg+DQogICAgPGNsaXBQYXRoDQogICAgICAgaWQ9ImNsaXBQYXRoMjY4OSI+DQogICAgICA8cGF0aA0KICAgICAgICAgZD0iTSAtMC4xMzgsODQxLjk0NSBMIDU5NS4xMzgsODQxLjk0NSBMIDU5NS4xMzgsMC4wNTUgTCAtMC4xMzgsMC4wNTUgTCAtMC4xMzgsODQxLjk0NSB6Ig0KICAgICAgICAgaWQ9InBhdGgyNjkxIiAvPg0KICAgIDwvY2xpcFBhdGg+DQogICAgPGNsaXBQYXRoDQogICAgICAgaWQ9ImNsaXBQYXRoMjY4MSI+DQogICAgICA8cGF0aA0KICAgICAgICAgZD0iTSAwLDg0Mi4wNCBMIDU5NC45Niw4NDIuMDQgTCA1OTQuOTYsMCBMIDAsMCBMIDAsODQyLjA0IHoiDQogICAgICAgICBpZD0icGF0aDI2ODMiIC8+DQogICAgPC9jbGlwUGF0aD4NCiAgICA8Y2xpcFBhdGgNCiAgICAgICBpZD0iY2xpcFBhdGgyNjczIj4NCiAgICAgIDxwYXRoDQogICAgICAgICBkPSJNIC0wLjEzOCw4NDEuOTQ1IEwgNTk1LjEzOCw4NDEuOTQ1IEwgNTk1LjEzOCwwLjA1NSBMIC0wLjEzOCwwLjA1NSBMIC0wLjEzOCw4NDEuOTQ1IHoiDQogICAgICAgICBpZD0icGF0aDI2NzUiIC8+DQogICAgPC9jbGlwUGF0aD4NCiAgICA8Y2xpcFBhdGgNCiAgICAgICBpZD0iY2xpcFBhdGgyNjY1Ij4NCiAgICAgIDxwYXRoDQogICAgICAgICBkPSJNIDAsODQyLjA0IEwgNTk0Ljk2LDg0Mi4wNCBMIDU5NC45NiwwIEwgMCwwIEwgMCw4NDIuMDQgeiINCiAgICAgICAgIGlkPSJwYXRoMjY2NyIgLz4NCiAgICA8L2NsaXBQYXRoPg0KICAgIDxjbGlwUGF0aA0KICAgICAgIGlkPSJjbGlwUGF0aDI2NTciPg0KICAgICAgPHBhdGgNCiAgICAgICAgIGQ9Ik0gLTAuMTM4LDg0MS45NDUgTCA1OTUuMTM4LDg0MS45NDUgTCA1OTUuMTM4LDAuMDU1IEwgLTAuMTM4LDAuMDU1IEwgLTAuMTM4LDg0MS45NDUgeiINCiAgICAgICAgIGlkPSJwYXRoMjY1OSIgLz4NCiAgICA8L2NsaXBQYXRoPg0KICAgIDxjbGlwUGF0aA0KICAgICAgIGlkPSJjbGlwUGF0aDI2NDkiPg0KICAgICAgPHBhdGgNCiAgICAgICAgIGQ9Ik0gMCw4NDIuMDQgTCA1OTQuOTYsODQyLjA0IEwgNTk0Ljk2LDAgTCAwLDAgTCAwLDg0Mi4wNCB6Ig0KICAgICAgICAgaWQ9InBhdGgyNjUxIiAvPg0KICAgIDwvY2xpcFBhdGg+DQogICAgPGNsaXBQYXRoDQogICAgICAgaWQ9ImNsaXBQYXRoMjY0MSI+DQogICAgICA8cGF0aA0KICAgICAgICAgZD0iTSAtMC4xMzgsODQxLjk0NSBMIDU5NS4xMzgsODQxLjk0NSBMIDU5NS4xMzgsMC4wNTUgTCAtMC4xMzgsMC4wNTUgTCAtMC4xMzgsODQxLjk0NSB6Ig0KICAgICAgICAgaWQ9InBhdGgyNjQzIiAvPg0KICAgIDwvY2xpcFBhdGg+DQogICAgPGNsaXBQYXRoDQogICAgICAgaWQ9ImNsaXBQYXRoMjYzMyI+DQogICAgICA8cGF0aA0KICAgICAgICAgZD0iTSAwLDg0Mi4wNCBMIDU5NC45Niw4NDIuMDQgTCA1OTQuOTYsMCBMIDAsMCBMIDAsODQyLjA0IHoiDQogICAgICAgICBpZD0icGF0aDI2MzUiIC8+DQogICAgPC9jbGlwUGF0aD4NCiAgICA8Y2xpcFBhdGgNCiAgICAgICBpZD0iY2xpcFBhdGgyNjI1Ij4NCiAgICAgIDxwYXRoDQogICAgICAgICBkPSJNIC0wLjEzOCw4NDEuOTQ1IEwgNTk1LjEzOCw4NDEuOTQ1IEwgNTk1LjEzOCwwLjA1NSBMIC0wLjEzOCwwLjA1NSBMIC0wLjEzOCw4NDEuOTQ1IHoiDQogICAgICAgICBpZD0icGF0aDI2MjciIC8+DQogICAgPC9jbGlwUGF0aD4NCiAgICA8Y2xpcFBhdGgNCiAgICAgICBpZD0iY2xpcFBhdGgyNjE3Ij4NCiAgICAgIDxwYXRoDQogICAgICAgICBkPSJNIDAsODQyLjA0IEwgNTk0Ljk2LDg0Mi4wNCBMIDU5NC45NiwwIEwgMCwwIEwgMCw4NDIuMDQgeiINCiAgICAgICAgIGlkPSJwYXRoMjYxOSIgLz4NCiAgICA8L2NsaXBQYXRoPg0KICAgIDxjbGlwUGF0aA0KICAgICAgIGlkPSJjbGlwUGF0aDI2MDkiPg0KICAgICAgPHBhdGgNCiAgICAgICAgIGQ9Ik0gLTAuMTM4LDg0MS45NDUgTCA1OTUuMTM4LDg0MS45NDUgTCA1OTUuMTM4LDAuMDU1IEwgLTAuMTM4LDAuMDU1IEwgLTAuMTM4LDg0MS45NDUgeiINCiAgICAgICAgIGlkPSJwYXRoMjYxMSIgLz4NCiAgICA8L2NsaXBQYXRoPg0KICAgIDxjbGlwUGF0aA0KICAgICAgIGlkPSJjbGlwUGF0aDI2MDEiPg0KICAgICAgPHBhdGgNCiAgICAgICAgIGQ9Ik0gMCw4NDIuMDQgTCA1OTQuOTYsODQyLjA0IEwgNTk0Ljk2LDAgTCAwLDAgTCAwLDg0Mi4wNCB6Ig0KICAgICAgICAgaWQ9InBhdGgyNjAzIiAvPg0KICAgIDwvY2xpcFBhdGg+DQogICAgPGNsaXBQYXRoDQogICAgICAgaWQ9ImNsaXBQYXRoMjU5MyI+DQogICAgICA8cGF0aA0KICAgICAgICAgZD0iTSAtMC4xMzgsODQxLjk0NSBMIDU5NS4xMzgsODQxLjk0NSBMIDU5NS4xMzgsMC4wNTUgTCAtMC4xMzgsMC4wNTUgTCAtMC4xMzgsODQxLjk0NSB6Ig0KICAgICAgICAgaWQ9InBhdGgyNTk1IiAvPg0KICAgIDwvY2xpcFBhdGg+DQogICAgPGNsaXBQYXRoDQogICAgICAgaWQ9ImNsaXBQYXRoMjU3OSI+DQogICAgICA8cGF0aA0KICAgICAgICAgZD0iTSAxNS4yMDksODE3Ljc4OCBMIDE1MS45OTMsODE3Ljc4OCBMIDE1MS45OTMsNzg3LjI1MiBMIDE1LjIwOSw3ODcuMjUyIEwgMTUuMjA5LDgxNy43ODggeiINCiAgICAgICAgIGlkPSJwYXRoMjU4MSIgLz4NCiAgICA8L2NsaXBQYXRoPg0KICAgIDxjbGlwUGF0aA0KICAgICAgIGlkPSJjbGlwUGF0aDMwODMiPg0KICAgICAgPHBhdGgNCiAgICAgICAgIGQ9Ik0gMCw4NDIuMDQgTCA1OTQuOTYsODQyLjA0IEwgNTk0Ljk2LDAgTCAwLDAgTCAwLDg0Mi4wNCB6Ig0KICAgICAgICAgaWQ9InBhdGgzMDg1IiAvPg0KICAgIDwvY2xpcFBhdGg+DQogICAgPGNsaXBQYXRoDQogICAgICAgaWQ9ImNsaXBQYXRoMzA3NSI+DQogICAgICA8cGF0aA0KICAgICAgICAgZD0iTSAtMC4xMzgsODQxLjk0NSBMIDU5NS4xMzgsODQxLjk0NSBMIDU5NS4xMzgsMC4wNTUgTCAtMC4xMzgsMC4wNTUgTCAtMC4xMzgsODQxLjk0NSB6Ig0KICAgICAgICAgaWQ9InBhdGgzMDc3IiAvPg0KICAgIDwvY2xpcFBhdGg+DQogICAgPGNsaXBQYXRoDQogICAgICAgaWQ9ImNsaXBQYXRoMzA2NyI+DQogICAgICA8cGF0aA0KICAgICAgICAgZD0iTSAwLDg0Mi4wNCBMIDU5NC45Niw4NDIuMDQgTCA1OTQuOTYsMCBMIDAsMCBMIDAsODQyLjA0IHoiDQogICAgICAgICBpZD0icGF0aDMwNjkiIC8+DQogICAgPC9jbGlwUGF0aD4NCiAgICA8Y2xpcFBhdGgNCiAgICAgICBpZD0iY2xpcFBhdGgzMDU5Ij4NCiAgICAgIDxwYXRoDQogICAgICAgICBkPSJNIC0wLjEzOCw4NDEuOTQ1IEwgNTk1LjEzOCw4NDEuOTQ1IEwgNTk1LjEzOCwwLjA1NSBMIC0wLjEzOCwwLjA1NSBMIC0wLjEzOCw4NDEuOTQ1IHoiDQogICAgICAgICBpZD0icGF0aDMwNjEiIC8+DQogICAgPC9jbGlwUGF0aD4NCiAgICA8Y2xpcFBhdGgNCiAgICAgICBpZD0iY2xpcFBhdGgzMDUxIj4NCiAgICAgIDxwYXRoDQogICAgICAgICBkPSJNIDAsODQyLjA0IEwgNTk0Ljk2LDg0Mi4wNCBMIDU5NC45NiwwIEwgMCwwIEwgMCw4NDIuMDQgeiINCiAgICAgICAgIGlkPSJwYXRoMzA1MyIgLz4NCiAgICA8L2NsaXBQYXRoPg0KICAgIDxjbGlwUGF0aA0KICAgICAgIGlkPSJjbGlwUGF0aDMwNDMiPg0KICAgICAgPHBhdGgNCiAgICAgICAgIGQ9Ik0gLTAuMTM4LDg0MS45NDUgTCA1OTUuMTM4LDg0MS45NDUgTCA1OTUuMTM4LDAuMDU1IEwgLTAuMTM4LDAuMDU1IEwgLTAuMTM4LDg0MS45NDUgeiINCiAgICAgICAgIGlkPSJwYXRoMzA0NSIgLz4NCiAgICA8L2NsaXBQYXRoPg0KICAgIDxjbGlwUGF0aA0KICAgICAgIGlkPSJjbGlwUGF0aDMwMzUiPg0KICAgICAgPHBhdGgNCiAgICAgICAgIGQ9Ik0gMCw4NDIuMDQgTCA1OTQuOTYsODQyLjA0IEwgNTk0Ljk2LDAgTCAwLDAgTCAwLDg0Mi4wNCB6Ig0KICAgICAgICAgaWQ9InBhdGgzMDM3IiAvPg0KICAgIDwvY2xpcFBhdGg+DQogICAgPGNsaXBQYXRoDQogICAgICAgaWQ9ImNsaXBQYXRoMzAyNyI+DQogICAgICA8cGF0aA0KICAgICAgICAgZD0iTSAtMC4xMzgsODQxLjk0NSBMIDU5NS4xMzgsODQxLjk0NSBMIDU5NS4xMzgsMC4wNTUgTCAtMC4xMzgsMC4wNTUgTCAtMC4xMzgsODQxLjk0NSB6Ig0KICAgICAgICAgaWQ9InBhdGgzMDI5IiAvPg0KICAgIDwvY2xpcFBhdGg+DQogICAgPGNsaXBQYXRoDQogICAgICAgaWQ9ImNsaXBQYXRoMzAxOSI+DQogICAgICA8cGF0aA0KICAgICAgICAgZD0iTSAwLDg0Mi4wNCBMIDU5NC45Niw4NDIuMDQgTCA1OTQuOTYsMCBMIDAsMCBMIDAsODQyLjA0IHoiDQogICAgICAgICBpZD0icGF0aDMwMjEiIC8+DQogICAgPC9jbGlwUGF0aD4NCiAgICA8Y2xpcFBhdGgNCiAgICAgICBpZD0iY2xpcFBhdGgzMDExIj4NCiAgICAgIDxwYXRoDQogICAgICAgICBkPSJNIC0wLjEzOCw4NDEuOTQ1IEwgNTk1LjEzOCw4NDEuOTQ1IEwgNTk1LjEzOCwwLjA1NSBMIC0wLjEzOCwwLjA1NSBMIC0wLjEzOCw4NDEuOTQ1IHoiDQogICAgICAgICBpZD0icGF0aDMwMTMiIC8+DQogICAgPC9jbGlwUGF0aD4NCiAgICA8Y2xpcFBhdGgNCiAgICAgICBpZD0iY2xpcFBhdGgzMDAzIj4NCiAgICAgIDxwYXRoDQogICAgICAgICBkPSJNIDAsODQyLjA0IEwgNTk0Ljk2LDg0Mi4wNCBMIDU5NC45NiwwIEwgMCwwIEwgMCw4NDIuMDQgeiINCiAgICAgICAgIGlkPSJwYXRoMzAwNSIgLz4NCiAgICA8L2NsaXBQYXRoPg0KICAgIDxjbGlwUGF0aA0KICAgICAgIGlkPSJjbGlwUGF0aDI5OTUiPg0KICAgICAgPHBhdGgNCiAgICAgICAgIGQ9Ik0gLTAuMTM4LDg0MS45NDUgTCA1OTUuMTM4LDg0MS45NDUgTCA1OTUuMTM4LDAuMDU1IEwgLTAuMTM4LDAuMDU1IEwgLTAuMTM4LDg0MS45NDUgeiINCiAgICAgICAgIGlkPSJwYXRoMjk5NyIgLz4NCiAgICA8L2NsaXBQYXRoPg0KICAgIDxjbGlwUGF0aA0KICAgICAgIGlkPSJjbGlwUGF0aDI5ODciPg0KICAgICAgPHBhdGgNCiAgICAgICAgIGQ9Ik0gMCw4NDIuMDQgTCA1OTQuOTYsODQyLjA0IEwgNTk0Ljk2LDAgTCAwLDAgTCAwLDg0Mi4wNCB6Ig0KICAgICAgICAgaWQ9InBhdGgyOTg5IiAvPg0KICAgIDwvY2xpcFBhdGg+DQogICAgPGNsaXBQYXRoDQogICAgICAgaWQ9ImNsaXBQYXRoMjk3OSI+DQogICAgICA8cGF0aA0KICAgICAgICAgZD0iTSAtMC4xMzgsODQxLjk0NSBMIDU5NS4xMzgsODQxLjk0NSBMIDU5NS4xMzgsMC4wNTUgTCAtMC4xMzgsMC4wNTUgTCAtMC4xMzgsODQxLjk0NSB6Ig0KICAgICAgICAgaWQ9InBhdGgyOTgxIiAvPg0KICAgIDwvY2xpcFBhdGg+DQogICAgPGNsaXBQYXRoDQogICAgICAgaWQ9ImNsaXBQYXRoMjk2NSI+DQogICAgICA8cGF0aA0KICAgICAgICAgZD0iTSAxNS4yMDksODE3Ljc4OCBMIDE1MS45OTMsODE3Ljc4OCBMIDE1MS45OTMsNzg3LjI1MiBMIDE1LjIwOSw3ODcuMjUyIEwgMTUuMjA5LDgxNy43ODggeiINCiAgICAgICAgIGlkPSJwYXRoMjk2NyIgLz4NCiAgICA8L2NsaXBQYXRoPg0KICAgIDxjbGlwUGF0aA0KICAgICAgIGlkPSJjbGlwUGF0aDMzMjgiPg0KICAgICAgPHBhdGgNCiAgICAgICAgIGQ9Ik0gMC4yMzMsODQxLjk4IEwgNjIyLjgyNyw4NDEuOTggTCA2MjIuODI3LDAgTCAwLjIzMywwIEwgMC4yMzMsODQxLjk4IHoiDQogICAgICAgICBpZD0icGF0aDMzMzAiIC8+DQogICAgPC9jbGlwUGF0aD4NCiAgPC9kZWZzPg0KICA8Zw0KICAgICB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtNjYyLjk3MzY5LDgwOC4wNTc3MykiDQogICAgIGlkPSJsYXllcjEiPg0KICAgIDxnDQogICAgICAgdHJhbnNmb3JtPSJtYXRyaXgoMy45MzUxNzY2LDAsMCwzLjkzNTE3NjYsLTE5MTAuNTExOSw1MzYuMjMwMTMpIg0KICAgICAgIGlkPSJnMzUxMCI+DQogICAgICANCiAgICAgIDxwYXRoDQogICAgICAgICBkPSJNIDc5OC44ODM5MywtMzE2LjQzNzggQyA3OTUuMTU4NjQsLTMxNi40Mzc4IDc5Mi4zMjUxLC0zMTMuOTkzNjYgNzkwLjkxNTE4LC0zMTEuMDMxNTUgTCA3NzAuNTA4OTMsLTI3Ny40Mzc4IEMgNzY5LjA5OTAyLC0yNzQuMzMzNCA3NjguMDcxNDMsLTI3MC44NDY5MSA3NjguMDcxNDMsLTI2OC41MzE1NSBDIDc2OC4wNzE0MywtMjY2LjQ2MTk1IDc2OC4zMzk1MiwtMjY0LjY1MDU5IDc2OS4xMDI2OCwtMjYyLjk2OTA1IEwgNzkxLjE2NTE4LC0yMTAuMjgxNTUgTCA3MDUuNDQ2NDMsLTIxMC4yODE1NSBDIDcwMi4zNjc5LC0yMTAuMjgxNTUgNjk5LjgyMTQzLC0yMTMuMzYwNDEgNjk5LjgyMTQzLC0yMTYuMjE5MDUgTCA2OTkuODIxNDMsLTMwNy4wMzE1NSBDIDY5OS4xNzQ2OCwtMzE5LjQzNjIgNjgxLjMzNDQ5LC0zMTkuNDM2MzEgNjgwLjk0NjQzLC0zMDYuNjU2NTUgTCA2ODEuMzIxNDMsLTIxMC4yODE1NSBDIDY4MS4zMjE0MywtMTk5LjgwNDIyIDY4OS40MjE3LC0xOTEuNDA2NTUgNjk5LjgyMTQzLC0xOTEuNDA2NTUgTCA4MTYuNjk2NDMsLTE5MS40MDY1NSBMIDc4OC4yMjc2OCwtMjY0LjI1MDMgQyA3ODcuNDUxNTgsLTI2Ni45NjY2NSA3ODcuMDYzMzEsLTI2OS40MjI4MSA3ODguOTc3NjgsLTI3Mi42NTY1NSBMIDgwNy44NTI2OCwtMzAzLjI4MTU1IEMgODA4LjEyNDMxLC0zMDMuOTI4MyA4MDguNDc3NjksLTMwNi42NDM0IDgwOC40Nzc2OCwtMzA3LjQwNjU1IEMgODA4LjEwMjU1LC0zMTIuOTY4NjEgODAzLjc2MDQxLC0zMTYuNjk2NSA3OTguODgzOTMsLTMxNi40Mzc4IHogTSA3NTIuNjAyNjgsLTMxNi40MDY1NSBDIDc0OC4wMTcyMywtMzE2LjM3NDIxIDc0My40NDY0MywtMzEzLjIzMzg4IDc0My40NDY0MywtMzA3LjAzMTU1IEwgNzQzLjQ0NjQzLC0yNDIuMDMxNTUgQyA3NDMuNDQ2NDMsLTIzMi42MDE5NSA3MzAuNzI3NjgsLTIzMy4zNjUxMSA3MzAuNzI3NjgsLTI0Mi4wMzE1NSBMIDczMC43Mjc2OCwtMzA3LjAzMTU1IEMgNzMwLjcyNzY4LC0zMTkuNDM2MiA3MTIuMzgzOTMsLTMxOS40MzYyIDcxMi4zODM5MywtMzA3LjAzMTU1IEwgNzEyLjM4MzkzLC0yNDEuNTMxNTUgQyA3MTIuMzgzOTMsLTIyNi41NTI4NCA3MjMuNTM1MDIsLTIxNi41OTQwNSA3MzYuODgzOTMsLTIxNi41OTQwNSBDIDc1MC42MDc5NCwtMjE2LjU5NDA1IDc2MS43OTAxNywtMjI2LjU1Mjg0IDc2MS43OTAxOCwtMjQxLjUzMTU1IEwgNzYxLjc5MDE4LC0zMDcuMDMxNTUgQyA3NjEuNzkwMTgsLTMxMy4zNjMyMiA3NTcuMTg4MTMsLTMxNi40Mzg4OSA3NTIuNjAyNjgsLTMxNi40MDY1NSB6Ig0KICAgICAgICAgaWQ9InJlY3QzNDAyIg0KICAgICAgICAgc3R5bGU9ImZpbGw6I2ZmZmZmZjtmaWxsLW9wYWNpdHk6MTtzdHJva2U6bm9uZSIgLz4NCiAgICA8L2c+DQogIDwvZz4NCjwvc3ZnPg0K","Тебойл":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjUuMDYgNS4wNiAyMS44OSAyMS44OSI+PHBhdGggdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTYgMTYpIHNjYWxlKDAuOSkgdHJhbnNsYXRlKC0xOC4zNiAtMTUuNikiIGQ9Ik0xNC41MjM5IDEwLjAxMzdIOC4wNTEwM0w5LjQ3NDE0IDQuMzI0NzFIMjguNjYzMkwyNy4yNjAyIDEwLjAxMzdIMjAuOTUzN0wxNi43MDE2IDI2Ljg3NzRIMTAuMzExOUwxNC41MjM5IDEwLjAxMzdaIiBmaWxsPSIjZmZmIi8+PC9zdmc+DQo=","Роснефть":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjEuMTQgMS4xNCAyOS43MiAyOS43MiI+PGRlZnM+PG1hc2sgaWQ9Im0iIG1hc2tVbml0cz0idXNlclNwYWNlT25Vc2UiIHg9IjAiIHk9IjAiIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiI+PHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiBmaWxsPSIjZmZmIi8+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMTQuOTczNiAxNS4zODY3SDE3LjAzMzhWMjcuNzE2OUgxNC45NzM2VjE1LjM4NjdaTTE3LjQzOTUgMTcuNDM5MUgxOS40OTE4VjI3LjcxNjlIMTcuNDM5NVYxNy40MzkxWk0xMi41MDc3IDE3LjQzOTFIMTQuNTZWMjcuNzE2OUgxMi41MDc3VjE3LjQzOTFaIiBmaWxsPSIjMDAwIi8+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMTkuOTA1NCA4LjgwMDVIMjEuOTY1NlYxOC42NjQ3TDE5LjkwNTQgMjAuNzI1VjguODAwNVpNMTkuNDk5NyAxNy4wMjU5SDE3LjQzOTVWNi4zNDI0MkgxOS40OTk3VjE3LjAyNTlaTTE0Ljk3MzYgNC4yOTAwNEgxNy4wMzM4VjE0Ljk3MzZIMTQuOTczNlY0LjI5MDA0Wk0xNC41NTk5IDE3LjAyNTlIMTIuNDk5N1Y2LjM0MjQySDE0LjU1OTlWMTcuMDI1OVpNMTAuMDQxNyA4LjgwMDVIMTIuMTAyVjIwLjczMjlMMTAuMDQxNyAxOC42NzI2VjguODAwNVY4LjgwMDVaTTcuNTY3ODcgMTEuMjY2NUg5LjYyODFWMTguMjU5TDcuNTY3ODcgMTYuMjA2NlYxMS4yNjY1Wk0yMi4zNzkyIDExLjI2NjVIMjQuNDMxNVYxNi4yMDY2TDIyLjM4NzIgMTguMjUxVjExLjI2NjVIMjIuMzc5MloiIGZpbGw9IiMwMDAiLz48L21hc2s+PC9kZWZzPjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTEwLjQ2MzYgMjkuNzY5NlYyMS45OTc2TDUuNSAxNy4wMjU3TDUuNTMxODIgOS4yMTM5NUg3Ljk5NzczVjYuNzM5OTZIMTAuNDYzNlY0LjI3MzkySDEyLjkyOTVWMi4yMjk0OUgxOS4xMDIzVjQuMjg5ODNIMjEuNTY4MlY2LjczOTk2SDI0LjAzNDFWOS4yMTM5NUgyNi41VjE3LjA1NzVMMjEuNTY4MiAyMS45ODk2VjI5Ljc2OTZIMTAuNDYzNloiIGZpbGw9IiNmZmYiIG1hc2s9InVybCgjbSkiLz48L3N2Zz4NCg=="}};
+
+const FUEL = Object.fromEntries(D.fuels.map(f => [f.key, f]));
+const FUEL_KEYS = D.fuels.map(f => f.key);
+const ST = Object.fromEntries(D.stations.map(s => [s.id, s]));
+const BRAND_ORDER = D.brands;
+const SORTED = [...D.stations].sort((a, b) =>
+  BRAND_ORDER.indexOf(a.brand) - BRAND_ORDER.indexOf(b.brand) || a.short.localeCompare(b.short, "ru"));
+const ALL_IDS = SORTED.map(s => s.id);
+const PER_DAY = 96;
+
+// Выбор: несколько марок, несколько заправок (сети — быстрый способ отметить свои заправки).
+// Период (range) и вкладка не запоминаются: каждое открытие начинается со всего периода.
+let state = { fuels: ["AI95"], stations: [...ALL_IDS], hmMode: "dates", range: null, tab: "stats", hour: new Date().getHours() };
+try {
+  const saved = JSON.parse(localStorage.getItem("azs-dash2") || "null");
+  if (saved) {
+    const fuels = (saved.fuels || []).filter(f => FUEL[f]);
+    const stations = (saved.stations || []).filter(id => ST[id]);
+    if (fuels.length) state.fuels = fuels;
+    if (stations.length) state.stations = stations;
+    if (saved.hmMode === "weekdays") state.hmMode = "weekdays";
+  } else {
+    const old = JSON.parse(localStorage.getItem("azs-dash") || "null");
+    if (old && FUEL[old.fuel]) state.fuels = [old.fuel];
+    if (old && old.brand && old.brand !== "all") {
+      const ids = ALL_IDS.filter(id => ST[id].brand === old.brand);
+      if (ids.length) state.stations = ids;
+    }
+  }
+} catch (e) {}
+function save() { try { localStorage.setItem("azs-dash2", JSON.stringify({ fuels: state.fuels, stations: state.stations, hmMode: state.hmMode })); } catch (e) {} }
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const pad = n => String(n).padStart(2, "0");
+const pct = x => x == null ? "—" : Math.round(x * 100) + " %";
+const lvl = c => c === "+" || c === "p" ? 1 : c === "-" || c === "m" ? 0 : null;
+const median = a => { if (!a.length) return null; const s = [...a].sort((x, y) => x - y); const m = s.length >> 1; return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2; };
+function slotTime(i) {
+  const d = Math.floor(i / PER_DAY), m = (i % PER_DAY) * 15;
+  const day = D.days[d] || { label: "?" };
+  return `${day.label} ${pad(Math.floor(m / 60))}:${pad(m % 60)}`;
+}
+function dur(slots) {
+  if (slots == null) return "—";
+  // Проверки идут раз в 15 минут — точнее четверти часа длительность не знаем.
+  const min = Math.round(slots) * 15, h = Math.floor(min / 60), m = min % 60;
+  if (!h) return `${m} мин`;
+  if (h >= 48) return `${Math.floor(h / 24)} сут ${h % 24} ч`;
+  return m ? `${h} ч ${m} мин` : `${h} ч`;
+}
+const stName = s => `${s.brand}, ${s.short}`;
+// Значок сети вместо её названия: официальные логотипы вшивает сборщик (D.logos); нет значка — текст.
+function logo(brand, cls = "logo") {
+  const src = D.logos && D.logos[brand];
+  return src ? `<img class="${cls}" src="${src}" alt="${esc(brand)}" title="${esc(brand)}">` : esc(brand);
+}
+const stLabel = s => `${logo(s.brand)}${esc(s.short)}`;
+const selFuels = () => FUEL_KEYS.filter(k => state.fuels.includes(k));
+const selStations = () => SORTED.filter(s => state.stations.includes(s.id));
+const allSelected = () => ALL_IDS.every(id => state.stations.includes(id));
+const fuelsLabel = fs => fs.map(k => FUEL[k].label).join(" или ");
+
+// Выбранный период: дни from..to (номера в D.days) и соответствующие 15-минутные отрезки lo..hi.
+function RANGE() {
+  const last = D.days.length - 1, r = state.range;
+  const from = r ? r.from : 0, to = r ? r.to : last;
+  return { from, to, lo: from * PER_DAY, hi: Math.min((to + 1) * PER_DAY, D.n), all: !r };
+}
+function periodLabel() {
+  const R = RANGE(), a = D.days[R.from].label, b = D.days[R.to].label;
+  if (R.from === R.to) return a;
+  return a.slice(3) === b.slice(3) ? `${a.slice(0, 2)}–${b}` : `${a}–${b}`;
+}
+// Первое касание — день, второе — конец периода, касание того же дня снимает выбор.
+function selectDay(k) {
+  const r = state.range;
+  if (!r) state.range = { from: k, to: k };
+  else if (r.from === r.to) state.range = k === r.from ? null : { from: Math.min(k, r.from), to: Math.max(k, r.from) };
+  else state.range = { from: k, to: k };
+}
+
+// Несколько марок складываются как «подойдёт любая из выбранных»:
+// есть хоть одна — «есть»; иначе «нет», если хоть по одной марке ответ понятен.
+const rowCache = new Map();
+function rowOf(sid, fuels) {
+  if (fuels.length === 1) return D.rows[sid][fuels[0]];
+  const key = sid + "|" + fuels.join(",");
+  if (rowCache.has(key)) return rowCache.get(key);
+  const rows = fuels.map(f => D.rows[sid][f]);
+  let out = "";
+  for (let i = 0; i < D.n; i++) {
+    const cs = rows.map(r => r[i]);
+    let c = "?";
+    if (cs.includes("+")) c = "+";
+    else if (cs.includes("p")) c = "p";
+    else if (cs.includes("m")) c = "m";
+    else if (cs.includes("-")) c = "-";
+    else if (cs.every(x => x === "_")) c = "_";
+    else if (cs.every(x => x === "·")) c = "·";
+    out += c;
+  }
+  rowCache.set(key, out);
+  return out;
+}
+
+// Разбор одной полосы: доли, переходы, окна «есть» и «нет» с видимыми началом и концом.
+const cache = new Map();
+function analyze(sid, fuels, R = RANGE()) {
+  const key = sid + "|" + fuels.join(",") + "|" + R.lo + "-" + R.hi;
+  if (cache.has(key)) return cache.get(key);
+  const row = rowOf(sid, fuels);
+  let prev = null, prevI = -9, runVal = null, runStart = 0, runExact = false, offIn = 0;
+  let yes = 0, obs = 0, unsure = 0, conf = 0, confYes = 0;
+  const events = [], up = [], down = [];
+  for (let i = R.lo; i < R.hi; i++) {
+    const c = row[i], v = lvl(c);
+    if (v === null) { if ((c === "_" || c === "!") && runVal !== null) offIn++; continue; }
+    obs++; yes += v;
+    if (c === "p" || c === "m") unsure++; else { conf++; confYes += v; }
+    if (prev === null) { prev = v; prevI = i; runVal = v; runStart = i; continue; }
+    if (v !== prev) {
+      const exact = i - prevI <= 2;
+      events.push({ i, up: v === 1, exact });
+      if (runExact && exact && offIn <= 4) (runVal === 1 ? up : down).push(i - runStart);
+      runVal = v; runStart = i; runExact = exact; offIn = 0;
+    }
+    prev = v; prevI = i;
+  }
+  const r = { yes, obs, unsure, conf, confYes, events, up, down,
+    share: obs ? yes / obs : null, confShare: conf ? confYes / conf : null, unsureShare: obs ? unsure / obs : null };
+  cache.set(key, r);
+  return r;
+}
+
+// По каждому 15-минутному отрезку: сколько выбранных заправок наблюдалось и у скольких было топливо.
+function slotAgg(stations, fuels) {
+  const R = RANGE(), yes = new Array(D.n).fill(0), obs = new Array(D.n).fill(0);
+  for (const s of stations) {
+    const row = rowOf(s.id, fuels);
+    for (let i = R.lo; i < R.hi; i++) { const v = lvl(row[i]); if (v !== null) { obs[i]++; yes[i] += v; } }
+  }
+  return { yes, obs };
+}
+
+function chip(code) {
+  if (code === "+") return '<span class="chip yes">есть</span>';
+  if (code === "-") return '<span class="chip no">нет</span>';
+  if (code === "?") return '<span class="chip unk" title="Яндекс не уверен">?</span>';
+  if (code === "") return '<span class="chip none" title="Такого топлива на заправке нет">·</span>';
+  return '<span class="chip unk" title="Карточку не удалось прочитать">ошибка</span>';
+}
+function fchip(fuel, code) {
+  const cls = code === "+" ? "yes" : code === "-" ? "no" : "unk";
+  const txt = code === "+" ? "есть" : code === "-" ? "нет" : code === "" ? "не продаётся" : code === "?" ? "неизвестно" : "не прочиталась";
+  return `<span class="fchip ${cls}" title="${esc(FUEL[fuel].label)}: ${txt}">${esc(FUEL[fuel].short)}</span>`;
+}
+function nowCell(sid, fuels) {
+  const cur = D.latest.cells[sid];
+  if (fuels.length === 1) return chip(cur ? cur[fuels[0]] : null);
+  return fuels.map(f => fchip(f, cur ? cur[f] : null)).join("");
+}
+
+// ---------- статичные блоки ----------
+function renderStatic() {
+  const first = D.days[0], last = D.days[D.days.length - 1];
+  $("lede").innerHTML = `АИ-92, АИ-95 и 95+ на ${D.stations.length} заправках трёх сетей <span class="lede-logos">${BRAND_ORDER.map(b => logo(b)).join("")}</span>. ` +
+    `Данные Яндекс Карт с ${first.label} по ${last.label}, проверка каждые 15 минут. Собрано ${D.generated}.`;
+  if (D.notes) {
+    $("notes-date").textContent = `выводы на ${D.notes.date}`;
+    $("notes").innerHTML = D.notes.items.map(n => `<li><b>${esc(n.lead)}</b> ${esc(n.text)}</li>`).join("");
+  }
+  $("now-time").textContent = `проверка ${D.latest.t}`;
+  let html = "<thead><tr><th>Заправка</th>" + D.fuels.map(f => `<th class="num">${esc(f.label)}</th>`).join("") + "</tr></thead><tbody>";
+  let brand = null;
+  for (const s of SORTED) {
+    if (s.brand !== brand) { brand = s.brand; html += `<tr class="brand-row"><td colspan="${D.fuels.length + 1}">${logo(brand, "logo logo-lg")}</td></tr>`; }
+    const cur = D.latest.cells[s.id];
+    html += `<tr><td><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.short)}</a></td>` +
+      D.fuels.map(f => `<td class="num">${chip(cur ? cur[f.key] : null)}</td>`).join("") + "</tr>";
+  }
+  $("now-table").innerHTML = html + "</tbody>";
+
+  // Откуда данные
+  const allOff = [];
+  let run = null;
+  for (let i = 0; i < D.n; i++) {
+    const off = D.stations.every(s => D.rows[s.id][FUEL_KEYS[0]][i] === "_");
+    if (off && run === null) run = i;
+    if ((!off || i === D.n - 1) && run !== null) { const end = off ? i + 1 : i; if (end - run >= 2) allOff.push([run, end]); run = null; }
+  }
+  const offSlots = allOff.reduce((a, [x, y]) => a + y - x, 0);
+  const detail = slotTime(D.detailFrom);
+  const flickerDays = [...new Set(D.flickers.map(f => f.t.slice(8, 10) + "." + f.t.slice(5, 7)))].join(", ");
+  $("about").innerHTML = [
+    "Статусы берутся из карточек заправок в Яндекс Картах. Яндекс собирает их по отметкам водителей, поэтому они могут отставать от реальности.",
+    "Монитор работает на ноутбуке и проверяет все заправки раз в 15 минут. Когда ноутбук спит или выключен, проверок нет — на ленте это пустые места.",
+    `До ${esc(detail)} история восстановлена по уведомлениям бота: в каждом из них полная таблица по всем заправкам. Перерывы в эти дни взяты из журнала Windows. С ${esc(detail)} учтена каждая проверка.`,
+    "Статус считается так же, как в боте: последний понятный ответ «есть» или «нет». Ответ «неизвестно» его не сбрасывает, но такие отрезки на ленте заштрихованы красным. Другой красной штриховкой отмечено время, когда проверка шла, но карточку не удалось прочитать — нет связи с Яндексом.",
+    "Если выбрано несколько марок, в плитках, тепловой карте и таблице по заправкам заправка засчитывается, когда есть хотя бы одна из них.",
+    `Скачок на одну проверку с возвратом обратно считается шумом и сглажен: таких ${D.flickers.length}, все — у Лукойла ровно в 06:00 (${esc(flickerDays)}).`,
+    `Всего монитор не работал около ${Math.round(offSlots / 4)} ч из ${Math.round(D.n / 4)}. Самые длинные перерывы:`,
+  ].map(t => `<li>${t}</li>`).join("");
+  $("gaps").innerHTML = allOff.filter(([a, b]) => b - a >= 4)
+    .map(([a, b]) => `<span>${slotTime(a)} – ${slotTime(b).slice(6)}${b - a >= 8 ? ` (${dur(b - a)})` : ""}</span>`).join("");
+  $("footer").textContent = `Страница собрана ${D.generated}. Данные: Яндекс Карты, проверка каждые 15 минут.`;
+}
+
+// ---------- фильтры ----------
+function buildFilters() {
+  $("fuel-buttons").innerHTML = D.fuels.map(f =>
+    `<button type="button" class="grade" data-fuel="${f.key}" aria-pressed="false" aria-label="${esc(f.label)}"><small>АИ</small><span>${esc(f.short)}</span></button>`).join("");
+  $("st-groups").innerHTML = BRAND_ORDER.map(b => {
+    const list = SORTED.filter(s => s.brand === b);
+    return `<div class="st-group"><label class="brand-check"><input type="checkbox" data-group="${esc(b)}" aria-label="${esc(b)}">${logo(b, "logo logo-lg")}</label>` +
+      list.map(s => `<label><input type="checkbox" data-sid="${s.id}">${esc(s.address)}</label>`).join("") + "</div>";
+  }).join("");
+}
+function syncFilters() {
+  const fuels = selFuels();
+  document.querySelectorAll(".grade[data-fuel]").forEach(b => b.setAttribute("aria-pressed", fuels.includes(b.dataset.fuel)));
+  const all = allSelected();
+  $("brand-buttons").innerHTML = ["all", ...BRAND_ORDER].map(b => {
+    if (b === "all") return `<button type="button" class="pill" data-brand="all" aria-pressed="${all}">Все</button>`;
+    const ids = ALL_IDS.filter(id => ST[id].brand === b), n = ids.filter(id => state.stations.includes(id)).length;
+    const pressed = all || !n ? "false" : n === ids.length ? "true" : "mixed";
+    return `<button type="button" class="pill pill-logo" data-brand="${esc(b)}" aria-pressed="${pressed}" aria-label="${esc(b)}">${logo(b, "logo logo-lg")}${pressed === "mixed" ? `<span class="cnt">${n}/${ids.length}</span>` : ""}</button>`;
+  }).join("");
+  $("st-toggle-text").textContent = all ? `Адреса: все ${ALL_IDS.length}` :
+    state.stations.length === 1 ? `Адрес: ${ST[state.stations[0]].short}` : `Адреса: ${state.stations.length} из ${ALL_IDS.length}`;
+  $("st-toggle").classList.toggle("narrowed", !all);
+  document.querySelectorAll("#st-groups input[data-sid]").forEach(cb => { cb.checked = state.stations.includes(cb.dataset.sid); });
+  document.querySelectorAll("#st-groups input[data-group]").forEach(cb => {
+    const ids = ALL_IDS.filter(id => ST[id].brand === cb.dataset.group), n = ids.filter(id => state.stations.includes(id)).length;
+    cb.checked = n === ids.length; cb.indeterminate = n > 0 && n < ids.length;
+  });
+  const pr = $("period-reset");
+  if (pr) {
+    pr.textContent = state.range ? `Период: ${periodLabel()} ✕` : `Период: весь, ${periodLabel()}`;
+    pr.setAttribute("aria-pressed", !!state.range);
+  }
+  const hint = $("combo-hint");
+  hint.hidden = fuels.length < 2;
+  hint.textContent = `Выбрано несколько марок: ${fuels.map(k => FUEL[k].label).join(", ")}. В плитках, тепловой карте и таблице заправка засчитывается, если есть хотя бы одна из них. На ленте у каждой марки своя полоса.`;
+}
+function toggleFuel(k) {
+  if (state.fuels.includes(k)) { if (state.fuels.length > 1) state.fuels = state.fuels.filter(f => f !== k); }
+  else state.fuels = [...state.fuels, k];
+}
+function clickBrand(b) {
+  if (b === "all") { state.stations = [...ALL_IDS]; return; }
+  const ids = ALL_IDS.filter(id => ST[id].brand === b);
+  const n = ids.filter(id => state.stations.includes(id)).length;
+  if (allSelected()) state.stations = ids;                       // первый выбор — только эта сеть
+  else if (n === ids.length) {                                   // сеть уже выбрана целиком — убрать
+    const rest = state.stations.filter(id => !ids.includes(id));
+    state.stations = rest.length ? rest : [...ALL_IDS];
+  } else state.stations = [...new Set([...state.stations, ...ids])];  // добавить сеть
+}
+function togglePanel(open) {
+  const panel = $("st-panel");
+  const show = open === undefined ? panel.hidden : open;
+  panel.hidden = !show;
+  $("st-toggle").setAttribute("aria-expanded", show);
+}
+function commit() {
+  state.fuels = selFuels();
+  state.stations = ALL_IDS.filter(id => state.stations.includes(id));
+  save(); syncFilters(); renderDynamic();
+}
+document.addEventListener("click", e => {
+  const t = e.target;
+  const f = t.closest("[data-fuel]");
+  if (f) { toggleFuel(f.dataset.fuel); commit(); return; }
+  const b = t.closest("[data-brand]");
+  if (b) { clickBrand(b.dataset.brand); commit(); return; }
+  const tb = t.closest("[data-tab-btn]");
+  if (tb) { showTab(tb.dataset.tabBtn); return; }
+  const dayEl = t.closest("[data-day]");
+  if (dayEl) { selectDay(+dayEl.dataset.day); commit(); return; }
+  if (t.closest("#period-reset")) {
+    if (state.range) { state.range = null; commit(); }
+    else { const cal = $("w-cal"); if (cal) { showTab("stats"); cal.scrollIntoView({ behavior: "smooth", block: "center" }); } }
+    return;
+  }
+  if (t.closest("#st-toggle")) { togglePanel(); return; }
+  if (t.closest("#st-all")) { state.stations = [...ALL_IDS]; commit(); return; }
+  if (t.closest("#st-done")) { togglePanel(false); return; }
+  if (t.closest("#hm-dates")) { state.hmMode = "dates"; commit(); return; }
+  if (t.closest("#hm-weekdays")) { state.hmMode = "weekdays"; commit(); return; }
+  if (!t.closest("#st-panel")) togglePanel(false);
+});
+$("st-groups").addEventListener("change", e => {
+  const cb = e.target;
+  let next = [...state.stations];
+  if (cb.dataset.sid) next = cb.checked ? [...next, cb.dataset.sid] : next.filter(id => id !== cb.dataset.sid);
+  else if (cb.dataset.group) {
+    const ids = ALL_IDS.filter(id => ST[id].brand === cb.dataset.group);
+    next = cb.checked ? [...new Set([...next, ...ids])] : next.filter(id => !ids.includes(id));
+  }
+  if (next.length) state.stations = next;   // последнюю заправку снять нельзя — иначе показывать нечего
+  commit();
+});
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape" && !$("st-panel").hidden) { togglePanel(false); $("st-toggle").focus(); return; }
+  const th = e.target.closest && e.target.closest("th[data-fuel]");
+  if (th && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); th.click(); }
+});
+
+// ---------- плитки ----------
+function renderTiles(stations, fuels) {
+  if (!$("tiles")) return;
+  const label = fuelsLabel(fuels), multi = fuels.length > 1;
+  const nowYes = stations.map(s => ({ s, have: fuels.filter(f => { const c = D.latest.cells[s.id]; return c && c[f] === "+"; }) }))
+    .filter(x => x.have.length);
+  const stats = stations.map(s => ({ s, a: analyze(s.id, fuels) })).filter(x => x.a.obs);
+  // «Надёжнее всего» — только если понятных ответов Яндекса набралось хотя бы на 12 часов.
+  const best = stats.filter(x => x.a.conf >= 48)
+    .sort((x, y) => y.a.confShare - x.a.confShare || y.a.conf - x.a.conf)[0];
+  const { yes, obs } = slotAgg(stations, fuels);
+  let sum = 0, cnt = 0;
+  for (let i = 0; i < D.n; i++) if (obs[i]) { sum += yes[i]; cnt++; }
+  const up = stats.flatMap(x => x.a.up), down = stats.flatMap(x => x.a.down);
+  const tiles = [
+    { l: multi ? "Сейчас есть хоть одна" : `${label} сейчас`, v: `${nowYes.length} <small>из ${stations.length}</small>`,
+      n: nowYes.length ? "есть: " + nowYes.map(x => stLabel(x.s) + (multi ? ` (${x.have.map(f => FUEL[f].short).join(", ")})` : "")).join("; ")
+        : "Яндекс ни на одной не подтверждает" },
+    best ? { l: "Надёжнее всего", v: `${pct(best.a.confShare)}`,
+      n: `${stLabel(best.s)} — доля «есть» среди понятных ответов Яндекса` } : null,
+    { l: "В среднем", v: `${cnt ? (sum / cnt).toFixed(1).replace(".", ",") : "—"} <small>из ${stations.length}</small>`,
+      n: `столько заправок одновременно продавали ${esc(label)}` },
+    { l: "Держится / ждать", v: `${dur(median(up))}`,
+      n: up.length < 3 ? `окон пока ${up.length}, оценка очень грубая` :
+        `так обычно держится после появления; ждать нового — ${dur(median(down))} (окон: ${up.length})` },
+  ].filter(Boolean);
+  $("tiles").innerHTML = tiles.map(t => `<div class="tile"><div class="eyebrow">${t.l}</div><div class="value">${t.v}</div><div class="note">${t.n}</div></div>`).join("");
+}
+
+// ---------- матрица ----------
+function renderMatrix(stations, fuels) {
+  if (!$("matrix")) return;
+  const multi = fuels.length > 1;
+  const cell = (a, cls) => {
+    if (!a.obs) return `<td class="${cls}"><span class="mval shaky">нет данных</span></td>`;
+    const shaky = a.unsureShare > 0.5;
+    const title = `Было ${pct(a.share)} времени. По понятным ответам Яндекса — ${pct(a.confShare)}. Яндекс не уверен ${pct(a.unsureShare)} времени.`;
+    return `<td class="${cls}" title="${esc(title)}"><span class="mval${shaky ? " shaky" : ""}">${pct(a.share)}${shaky ? '<span class="star">*</span>' : ""}</span>` +
+      `<div class="mbar"><i style="width:${Math.round(a.share * 100)}%"></i></div></td>`;
+  };
+  const cols = D.fuels.length + 1 + (multi ? 1 : 0);
+  let html = "<thead><tr><th>Заправка</th>" + D.fuels.map(f =>
+    `<th class="fuel-col" data-fuel="${f.key}" aria-current="${fuels.includes(f.key)}" tabindex="0">${esc(f.label)}</th>`).join("") +
+    (multi ? `<th class="combo-col">Любая из выбранных</th>` : "") + "</tr></thead><tbody>";
+  let brand = null;
+  for (const s of stations) {
+    if (s.brand !== brand) { brand = s.brand; html += `<tr class="brand-row"><td colspan="${cols}">${logo(brand, "logo logo-lg")}</td></tr>`; }
+    html += `<tr><td>${esc(s.short)}</td>` +
+      D.fuels.map(f => cell(analyze(s.id, [f.key]), "cell" + (fuels.includes(f.key) ? " current" : ""))).join("") +
+      (multi ? cell(analyze(s.id, fuels), "cell") : "") + "</tr>";
+  }
+  $("matrix").innerHTML = html + "</tbody>";
+}
+
+// ---------- лента ----------
+const TOP = 26, BRAND_H = 30, BOTTOM = 22;
+function tlLayout(stations, fuels) {
+  const multi = fuels.length > 1;
+  const RH = multi ? 20 : 26, BH = multi ? 12 : 16, GAP = multi ? 6 : 0;
+  const rows = [];
+  let y = TOP, brand = null;
+  for (const s of stations) {
+    if (s.brand !== brand) { brand = s.brand; rows.push({ brand, y, h: BRAND_H }); y += BRAND_H; }
+    else if (GAP) { rows.push({ gap: true, y, h: GAP }); y += GAP; }
+    fuels.forEach((f, k) => { rows.push({ s, fuel: f, first: k === 0, y, h: RH, bh: BH }); y += RH; });
+  }
+  return { rows, height: y + BOTTOM, multi };
+}
+function renderTimeline(stations, fuels) {
+  if (!$("tl-scroll")) return;
+  $("tl-title").textContent = `Лента по дням · ${fuels.map(k => FUEL[k].label).join(", ")} · ${periodLabel()}`;
+  const { rows, height, multi } = tlLayout(stations, fuels);
+  $("tl-labels").style.paddingTop = TOP + "px";
+  $("tl-labels").innerHTML = rows.map(r => r.brand ? `<div class="tl-brand" style="height:${r.h}px">${logo(r.brand, "logo logo-lg")}</div>` :
+    r.gap ? `<div style="height:${r.h}px"></div>` :
+    `<div class="tl-label" style="height:${r.h}px" title="${esc(r.s.brand + ", " + r.s.address + " · " + FUEL[r.fuel].label)}"><span class="nm">${r.first ? esc(r.s.short) : ""}</span>${multi ? `<span class="tag">${esc(FUEL[r.fuel].short)}</span>` : ""}</div>`).join("");
+  const box = $("tl-scroll");
+  // На телефоне лента умещается в ширину экрана целиком, на широком — не уже 720 px.
+  const narrow = box.clientWidth < 560;
+  const R = RANGE(), N = R.hi - R.lo;
+  const W = narrow ? Math.max(box.clientWidth, 200) : Math.max(box.clientWidth, 720), sw = W / N;
+  const dayW = PER_DAY * sw;
+  const x = i => (i - R.lo) * sw;
+  let g = `<defs>
+    <pattern id="pUns" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="5" height="5" style="fill:var(--pattern-bg, var(--surface))"/><rect width="2.2" height="5" style="fill:var(--unsure)"/></pattern>
+    <pattern id="pErr" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="5" height="5" style="fill:var(--pattern-bg, var(--surface))"/><rect width="2.2" height="5" style="fill:var(--unsure)"/></pattern>
+  </defs>`;
+  for (let d = R.from; d <= R.to; d++) {
+    const xi = x(d * PER_DAY);
+    if (dayW >= 220) for (const hh of [6, 12, 18]) {   // выбрано мало дней — видны и часы
+      const xh = x(d * PER_DAY + hh * 4);
+      g += `<line x1="${xh}" x2="${xh}" y1="${TOP - 4}" y2="${height - BOTTOM}" style="stroke:var(--grid)" stroke-width="0.6"/>`;
+      g += `<text x="${xh + 2}" y="${TOP - 8}" style="fill:var(--muted);font:10.5px var(--font)">${hh}:00</text>`;
+    }
+    g += `<line x1="${xi}" x2="${xi}" y1="${TOP - 18}" y2="${height - BOTTOM}" style="stroke:var(--grid)" stroke-width="1"/>`;
+    const dl = dayW >= 64 ? `${D.days[d].dow} ${D.days[d].label}` : dayW >= 16 ? D.days[d].label.slice(0, 2) : "";
+    if (dl && xi + (dayW >= 64 ? 40 : 12) < W) g += `<text x="${xi + 3}" y="${TOP - 8}" style="fill:var(--ink-2);font:${narrow ? 11 : 12}px var(--font)">${dl}</text>`;
+  }
+  // Яндекс не уверен («?») и нет связи с Яндексом — красная штриховка в разные стороны (Сергей, 27.09.2026).
+  const fillOf = { "+": "var(--yes)", "p": "url(#pUns)", "-": "var(--no)", "m": "url(#pUns)", "!": "url(#pErr)", "?": "var(--unk)", "·": "var(--unk)" };
+  for (const r of rows) {
+    if (!r.s) continue;
+    const row = D.rows[r.s.id][r.fuel], y = r.y + (r.h - r.bh) / 2;
+    let i = R.lo;
+    while (i < R.hi) {
+      let j = i; while (j < R.hi && row[j] === row[i]) j++;
+      const f = fillOf[row[i]];
+      if (f) g += `<rect x="${x(i).toFixed(2)}" y="${y}" width="${Math.max(x(j) - x(i), 0.8).toFixed(2)}" height="${r.bh}" style="fill:${f}"/>`;
+      i = j;
+    }
+  }
+  const xd = x(D.detailFrom);
+  if (D.detailFrom > R.lo && D.detailFrom < R.hi) g += `<line x1="${xd}" x2="${xd}" y1="${TOP}" y2="${height - BOTTOM + 4}" style="stroke:var(--axis)" stroke-width="1"/>`;
+  if (D.detailFrom > R.lo && D.detailFrom < R.hi) {
+    g += `<text x="${xd - 6}" y="${height - 6}" text-anchor="end" style="fill:var(--muted);font:11.5px var(--font)">${narrow ? "по боту" : "по уведомлениям бота"}</text>`;
+    g += `<text x="${xd + 6}" y="${height - 6}" style="fill:var(--muted);font:11.5px var(--font)">${narrow ? "подробно" : "каждая проверка"}</text>`;
+  }
+  box.innerHTML = `<svg width="${W}" height="${height}" viewBox="0 0 ${W} ${height}" role="img" aria-label="Лента наличия по заправкам">${g}</svg>`;
+  const svg = box.querySelector("svg");
+  const STATE_TXT = { "+": "есть", "p": "есть по последнему ответу, сейчас Яндекс не уверен", "-": "нет", "m": "нет по последнему ответу, сейчас Яндекс не уверен", "?": "статус неизвестен", "·": "не продаётся", "_": "монитор не работал", "!": "нет связи с Яндексом — статус не прочитан" };
+  const move = ev => {
+    const rect = svg.getBoundingClientRect();
+    const px = ev.clientX - rect.left, py = ev.clientY - rect.top;
+    const r = rows.find(r => r.s && py >= r.y && py < r.y + r.h);
+    const i = R.lo + Math.floor(px / sw);
+    if (!r || i < R.lo || i >= R.hi) { hideTip(); return; }
+    const row = D.rows[r.s.id][r.fuel], c = row[i], L = lvl(c);
+    let a = i, b = i;
+    const same = k => L === null ? row[k] === c : lvl(row[k]) === L || row[k] === "_" || row[k] === "!";
+    while (a > 0 && same(a - 1)) a--;
+    while (b < D.n - 1 && same(b + 1)) b++;
+    while (L !== null && (row[a] === "_" || row[a] === "!")) a++;
+    while (L !== null && (row[b] === "_" || row[b] === "!")) b--;
+    const span = L === null ? "" : `<br>${L ? "есть" : "нет"} с ${slotTime(a)} до ${b >= D.n - 1 ? "сейчас" : slotTime(b + 1)} (${dur(b + 1 - a)})`;
+    showTip(ev, `<b>${stLabel(r.s)} · ${esc(FUEL[r.fuel].label)}</b><br>${slotTime(i)} — ${STATE_TXT[c] || c}${span}`);
+  };
+  svg.addEventListener("pointermove", move);
+  svg.addEventListener("pointerdown", move);
+  svg.addEventListener("pointerleave", hideTip);
+}
+
+// ---------- часы и дни ----------
+function heatColor(t, a, b) {
+  const m = a.map((v, k) => Math.round(v + (b[k] - v) * t));
+  return `rgb(${m[0]},${m[1]},${m[2]})`;
+}
+function hex(s) { s = s.trim().replace("#", ""); return [0, 2, 4].map(k => parseInt(s.slice(k, k + 2), 16)); }
+
+function renderHeatmap(stations, fuels) {
+  if (!$("hm")) return;
+  const label = fuelsLabel(fuels), multi = fuels.length > 1, R = RANGE();
+  $("hm-title").textContent = `Часы и дни · ${label} · ${periodLabel()}`;
+  $("hm-dates").setAttribute("aria-pressed", state.hmMode === "dates");
+  $("hm-weekdays").setAttribute("aria-pressed", state.hmMode === "weekdays");
+  const { yes, obs } = slotAgg(stations, fuels);
+  const cs = getComputedStyle(document.documentElement);
+  const lo = hex(cs.getPropertyValue("--seq-lo")), hi = hex(cs.getPropertyValue("--seq-hi"));
+  const groups = state.hmMode === "dates"
+    ? D.days.map((d, k) => ({ label: `<b>${d.dow}</b>${d.label.slice(0, 2)}<span class="dm">${d.label.slice(2)}</span>`, days: [k] }))
+        .filter(gr => gr.days[0] >= R.from && gr.days[0] <= R.to)
+    : ["пн", "вт", "ср", "чт", "пт", "сб", "вс"].map((w, wd) => {
+        const days = D.days.map((d, k) => d.wd === wd && k >= R.from && k <= R.to ? k : -1).filter(k => k >= 0);
+        return { label: `<b>${w}</b>`, days, n: days.length };
+      });
+  const share = i => obs[i] ? yes[i] / obs[i] : null;
+  const cellVals = (gr, h) => {
+    const vals = [];
+    for (const d of gr.days) for (let q = 0; q < 4; q++) { const v = share(d * PER_DAY + h * 4 + q); if (v !== null) vals.push(v); }
+    return vals;
+  };
+  // Шкала цвета — от нуля до максимума по данным (округлённого вверх до 10 %),
+  // иначе у АИ-95 с его 20–30 % все клетки выходят одним цветом.
+  let top = 0;
+  for (const gr of groups) for (let h = 0; h < 24; h++) {
+    const vals = cellVals(gr, h);
+    if (vals.length) top = Math.max(top, vals.reduce((a, b) => a + b, 0) / vals.length);
+  }
+  top = Math.max(0.1, Math.ceil(top * 10) / 10);
+  $("hm-max").textContent = Math.round(top * 100) + " %";
+  const what = multi ? "хоть одна из выбранных марок была" : `${label} был`;
+  let html = `<div></div>` + Array.from({ length: 24 }, (_, h) => `<div class="h${h % 3 ? "" : " major"}">${h}</div>`).join("") + `<div class="h" style="text-align:right">за день</div>`;
+  for (const gr of groups) {
+    html += `<div class="rl">${gr.label}${gr.n != null ? `<span class="muted" style="margin-left:4px">×${gr.n}</span>` : ""}</div>`;
+    const rowVals = [];
+    for (let h = 0; h < 24; h++) {
+      const vals = cellVals(gr, h);
+      if (!vals.length) { html += `<div class="c empty" data-tip="нет данных"></div>`; continue; }
+      const v = vals.reduce((a, b) => a + b, 0) / vals.length;
+      rowVals.push(...vals);
+      const tip = `${gr.label.replace(/<[^>]+>/g, " ").trim()}, ${h}:00–${h + 1}:00 — ${what} в среднем на ${Math.round(v * 100)} % заправок`;
+      html += `<div class="c" style="background:${heatColor(Math.min(v / top, 1), lo, hi)}" data-tip="${esc(tip)}" aria-label="${esc(tip)}"></div>`;
+    }
+    const rv = rowVals.length ? rowVals.reduce((a, b) => a + b, 0) / rowVals.length : null;
+    html += `<div class="rs">${pct(rv)}</div>`;
+  }
+  const hourVals = Array.from({ length: 24 }, () => []);
+  for (let i = R.lo; i < R.hi; i++) { const v = share(i); if (v !== null) hourVals[(i % PER_DAY) >> 2].push(v); }
+  const prof = hourVals.map(v => v.length ? v.reduce((a, b) => a + b, 0) / v.length : null);
+  const maxP = Math.max(...prof.filter(v => v !== null), 0.01);
+  html += `<div class="sep"></div><div class="rl"><span class="lf">в среднем</span><span class="ls">ср., %</span></div>` + prof.map((v, h) => {
+    const tip = v === null ? "нет данных" : `${h}:00–${h + 1}:00 — в среднем ${Math.round(v * 100)} % заправок`;
+    const peak = v !== null && v === maxP;
+    return `<div class="bar-cell" data-tip="${esc(tip)}">${peak ? `<em>${Math.round(v * 100)}</em>` : ""}<i style="height:${v === null ? 0 : Math.max(2, Math.round(v / maxP * 36))}px"></i></div>`;
+  }).join("") + `<div class="rs">%</div>`;
+  const ups = new Array(24).fill(0);
+  for (const s of stations) for (const e of analyze(s.id, fuels).events) if (e.up && e.exact) ups[(e.i % PER_DAY) >> 2]++;
+  const maxU = Math.max(...ups, 1), total = ups.reduce((a, b) => a + b, 0);
+  html += `<div class="rl"><span class="lf">появлялось</span><span class="ls">появл.</span></div>` + ups.map((u, h) => {
+    const tip = `${h}:00–${h + 1}:00 — появлялось ${u} раз`;
+    return `<div class="bar-cell ups" data-tip="${esc(tip)}">${u && u === maxU ? `<em>${u}</em>` : ""}<i style="height:${u ? Math.max(3, Math.round(u / maxU * 36)) : 0}px"></i></div>`;
+  }).join("") + `<div class="rs">${total}</div>`;
+  $("hm").innerHTML = html;
+  $("hm-note").textContent = state.hmMode === "weekdays"
+    ? `Число «×» — сколько раз этот день недели попал в данные. Пока каждый день недели встречается один-два раза, поэтому сравнивать дни недели рано: разбивка станет надёжной недели через три-четыре.`
+    : `Нижние строки: «в среднем» — доля заправок с топливом в этот час за все дни, «появлялось» — сколько раз топливо появлялось в этот час (только когда время появления видно точно).`;
+}
+
+// ---------- таблица по заправкам ----------
+function renderStations(stations, fuels) {
+  if (!$("stations")) return;
+  $("st-title").textContent = `По заправкам · ${fuelsLabel(fuels)}`;
+  let html = `<thead><tr><th>Заправка</th><th class="num">Было</th><th class="num">По понятным ответам</th><th class="num">Яндекс не уверен</th><th class="num">Появлялось</th><th class="num">Держится</th><th class="num">Ждать</th><th class="num">Сейчас</th></tr></thead><tbody>`;
+  let brand = null;
+  for (const s of stations) {
+    if (s.brand !== brand) { brand = s.brand; html += `<tr class="brand-row"><td colspan="8">${logo(brand, "logo logo-lg")}</td></tr>`; }
+    const a = analyze(s.id, fuels);
+    const ups = a.events.filter(e => e.up).length;
+    const note = arr => arr.length ? `${dur(median(arr))}${arr.length < 3 ? ` <span class="muted">(${arr.length}×)</span>` : ""}` : "—";
+    html += `<tr><td><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.short)}</a></td>` +
+      `<td class="num" data-l="Было">${a.obs ? pct(a.share) : "нет данных"}</td>` +
+      `<td class="num" data-l="По понятным ответам">${a.conf ? pct(a.confShare) + ` <span class="muted">за ${Math.round(a.conf / 4)} ч</span>` : "—"}</td>` +
+      `<td class="num" data-l="Яндекс не уверен">${a.obs ? pct(a.unsureShare) : "—"}</td>` +
+      `<td class="num" data-l="Появлялось">${ups}</td><td class="num" data-l="Держится">${note(a.up)}</td><td class="num" data-l="Ждать">${note(a.down)}</td>` +
+      `<td class="num" data-l="Сейчас">${nowCell(s.id, fuels)}</td></tr>`;
+  }
+  $("stations").innerHTML = html + "</tbody>";
+}
+
+// ---------- журнал ----------
+function renderEvents(stations, fuels) {
+  if (!$("events")) return;
+  const list = [];
+  for (const s of stations) for (const f of fuels) for (const e of analyze(s.id, [f]).events) list.push({ ...e, s, f });
+  list.sort((a, b) => b.i - a.i || a.s.short.localeCompare(b.s.short, "ru"));
+  $("ev-summary").textContent = `${fuels.map(k => FUEL[k].label).join(", ")} · ${periodLabel()}: ${list.length} изменений — показать`;
+  $("ev-hint").textContent = "≈ — изменение замечено после перерыва в работе монитора, точное время неизвестно";
+  $("events").innerHTML = `<thead><tr><th>Когда</th><th>Заправка</th><th>Марка</th><th>Что</th></tr></thead><tbody>` +
+    list.map(e => `<tr><td>${e.exact ? "" : '<span class="muted" title="после перерыва, точное время неизвестно">≈ </span>'}${slotTime(e.i)}</td><td>${stLabel(e.s)}</td><td>${esc(FUEL[e.f].label)}</td><td>${e.up ? '<span class="chip yes">появился</span>' : '<span class="chip no">закончился</span>'}</td></tr>`).join("") + "</tbody>";
+}
+
+// ---------- подсказка ----------
+const tip = $("tip");
+function showTip(ev, html) {
+  tip.innerHTML = html; tip.hidden = false;
+  const w = tip.offsetWidth, h = tip.offsetHeight;
+  let left = ev.clientX + 14, top = ev.clientY + 14;
+  if (left + w > window.innerWidth - 8) left = ev.clientX - w - 14;
+  if (top + h > window.innerHeight - 8) top = ev.clientY - h - 14;
+  tip.style.left = Math.max(8, left) + "px"; tip.style.top = Math.max(8, top) + "px";
+}
+function hideTip() { tip.hidden = true; }
+function tipFrom(e) {
+  const t = e.target.closest && e.target.closest("[data-tip]");
+  if (t) showTip(e, esc(t.dataset.tip));
+  else if (!e.target.closest || !e.target.closest("#tl-scroll svg")) hideTip();
+}
+document.addEventListener("pointerdown", tipFrom);
+document.addEventListener("pointermove", tipFrom);
+
+// ---------- вкладки ----------
+// Разделы помечены data-tab="stats|now|log", кнопки — data-tab-btn. Скрытые вкладки
+// перерисовываются при открытии: ширина ленты считается по видимому блоку.
+function showTab(name) {
+  if (!document.querySelector(`[data-tab="${name}"]`)) return;
+  state.tab = name;
+  document.querySelectorAll("[data-tab]").forEach(el => { el.hidden = el.dataset.tab !== name; });
+  document.querySelectorAll("[data-tab-btn]").forEach(b => b.setAttribute("aria-selected", b.dataset.tabBtn === name));
+  try { history.replaceState(null, "", "#" + name); } catch (e) {}
+  renderDynamic();
+}
+
+// ---------- сборка ----------
+function renderDynamic() {
+  const stations = selStations(), fuels = selFuels();
+  renderTiles(stations, fuels);
+  renderMatrix(stations, fuels);
+  renderTimeline(stations, fuels);
+  renderHeatmap(stations, fuels);
+  renderStations(stations, fuels);
+  renderEvents(stations, fuels);
+  // У варианта оформления могут быть свои виджеты — их рисует renderExtra из шаблона.
+  if (typeof renderExtra === "function") renderExtra(stations, fuels);
+}
+renderStatic();
+buildFilters();
+syncFilters();
+if (document.querySelector("[data-tab]")) showTab(["now", "log"].includes(location.hash.slice(1)) ? location.hash.slice(1) : "stats");
+else renderDynamic();
+let rt;
+window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => renderTimeline(selStations(), selFuels()), 150); });
+const rerenderHeat = () => renderHeatmap(selStations(), selFuels());
+try { matchMedia("(prefers-color-scheme: dark)").addEventListener("change", rerenderHeat); } catch (e) {}
+new MutationObserver(rerenderHeat).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+
+</script>
